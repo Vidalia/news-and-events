@@ -17,14 +17,14 @@ var title = "News";
 var Screen = React.createClass({
 
   componentDidMount: function() {
-    
+
   },
 
   menuOption: function(option, ev) {
     ev.preventDefault();
     if (option == "news") {
       child = <NewsPage/>;
-      title = "News";
+      title = "University of Essex News";
       buttonState[0] = buttonState[1] = buttonState[2] = "item";
       buttonState[0] = "active item";
     } else if (option == "events") {
