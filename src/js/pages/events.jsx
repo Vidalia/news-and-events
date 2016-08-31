@@ -53,7 +53,7 @@ var EventsPage = React.createClass({
                       <Grid>
                         <Row>
                           <Col className="one wide column">
-                            <i className="newspaper icon"/>
+                            <i className="announcement icon"/>
                           </Col>
                           <Col className="ten wide column">
                             {event.title}
