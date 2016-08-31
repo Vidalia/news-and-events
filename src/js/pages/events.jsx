@@ -7,6 +7,8 @@ var EventsPage = React.createClass({
 
   render:function() {
 
+    var RSS = "http://www.essex.ac.uk/news/eventfeed.xml";
+
     return (
       <Container>
         <VBox>

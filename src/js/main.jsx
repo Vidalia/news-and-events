@@ -42,10 +42,9 @@ var Screen = React.createClass({
       <Container>
         <VBox>
           <BannerHeader theme="alt" key="header" flex={0}>{title}</BannerHeader>
-          <BasicSegment>
+          <BasicSegment style={{height:"100%"}}>
             {child}
           </BasicSegment>
-
         </VBox>
         <div style={{position:"absolute", bottom:"0px", width:"100%", margin:"0", display:"block"}}>
             <div style={{width:"100%", margin:"0"}}  className="ui primary menu">
