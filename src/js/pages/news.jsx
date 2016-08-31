@@ -6,7 +6,7 @@ var {BasicSegment} = require("-components/segment");
 var {Listview, Item} = require("-components/listview");
 var {Grid,Row,Col} = require("-components/grid");
 var $ = require("jquery");
-var newsData, hey;
+var newsData;
 
 var NewsPage = React.createClass({
 
@@ -17,11 +17,7 @@ var NewsPage = React.createClass({
   getNews: function() {
     var RSS = "http://www.essex.ac.uk/news/newsfeed.xml";
     $.get(RSS, function (data) {
-      console.log("function");
-      console.log(data.responseXML);
-      //console.log(data.getElementsByTagName("item")[0].childNodes[0].nodeValue);
       newsData = data.getElementsByTagName("item");
-      hey = data.responseXML;
     });
   },
 
@@ -29,7 +25,6 @@ var NewsPage = React.createClass({
     var loading = !newsData;
     console.log("here");
     console.log(loading);
-    console.log(hey);
 
     if (!loading) {
       var stories, story;
