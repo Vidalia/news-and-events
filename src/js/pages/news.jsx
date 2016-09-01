@@ -45,29 +45,27 @@ var NewsPage = React.createClass({
 
       return (
         <Page>
-          <VBox>
-            <BasicSegment>
-              <Listview formatted items={stories} itemFactory={(news)=>{
-                return (
-                  <Item href={news.link}>
-                      <Grid>
-                        <Row>
-                          <Col className="one wide column">
-                            <i className="newspaper icon"/>
-                          </Col>
-                          <Col className="ten wide column">
-                            {news.title}
-                          </Col>
-                          <Col className="five wide column">
-                            {news.date.substring(0,16)}
-                          </Col>
-                        </Row>
-                      </Grid>
-                  </Item>
-                );
-              }}/>;
-            </BasicSegment>
-          </VBox>
+          <BasicSegment>
+            <Listview formatted items={stories} itemFactory={(news)=>{
+              return (
+                <Item href={news.link}>
+                    <Grid>
+                      <Row>
+                        <Col className="one wide column">
+                          <i className="newspaper icon"/>
+                        </Col>
+                        <Col className="ten wide column">
+                          {news.title}
+                        </Col>
+                        <Col className="five wide column">
+                          {news.date.substring(0,16)}
+                        </Col>
+                      </Row>
+                    </Grid>
+                </Item>
+              );
+            }}/>;
+          </BasicSegment>
         </Page>
       );
     }

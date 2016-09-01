@@ -13,7 +13,6 @@ var AddPage = React.createClass({
 
   },
 
-
   render:function() {
     //var loading = !newsData;
 

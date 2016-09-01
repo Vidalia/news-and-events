@@ -57,7 +57,7 @@ var Screen = React.createClass({
         child = <EventsPage/>;
         eventPage = true;
         addEvent = false;
-        title = "Events";
+        title = "University of Essex Events";
         buttonState[0] = buttonState[1] = buttonState[2] = "item";
         buttonState[2] = "active item";
       } else if (option == "add") {
@@ -79,7 +79,7 @@ var Screen = React.createClass({
         child = <EventsPage/>;
         eventPage = true;
         addEvent = false;
-        title = "Events";
+        title = "University of Essex Events";
         buttonState[0] = buttonState[1] = "item";
         buttonState[1] = "active item";
       } else if (option == "add") {

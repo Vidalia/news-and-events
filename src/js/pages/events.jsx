@@ -9,6 +9,8 @@ var {AttachedLabel} = require("-components/label");
 var $ = require("jquery");
 var newsData;
 
+var EventDetails = require("./eventDetails");
+
 var EventsPage = React.createClass({
 
   componentDidMount: function() {
