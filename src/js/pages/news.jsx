@@ -48,7 +48,6 @@ var NewsPage = React.createClass({
           <VBox>
             <BasicSegment>
               <Listview formatted items={stories} itemFactory={(news)=>{
-                //console.log(news);
                 return (
                   <Item href={news.link}>
                       <Grid>

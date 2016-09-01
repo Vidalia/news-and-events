@@ -11,22 +11,24 @@ var NewsPage = require("./pages/news");
 var EventsPage = require("./pages/events");
 var WelcomePage = require("./pages/welcome");
 
-var newStudent = true;
-var buttonState;
-var child;
-var title;
-
-if (newStudent) {
-  buttonState = ["active item","item","item"];
-  child = <WelcomePage/>;
-  title = "Welcome Week";
-} else {
-  buttonState = ["active item","item"];
-  child = <NewsPage/>;
-  title = "News";
-}
+var newStudent, buttonState, child, title, eventPage, banner;
 
 var Screen = React.createClass({
+
+  getInitialState: function() {
+    newStudent = true;
+    eventPage = false;
+    if (newStudent) {
+      buttonState = ["active item","item","item"];
+      child = <WelcomePage/>;
+      title = "Welcome Week";
+    } else {
+      buttonState = ["active item","item"];
+      child = <NewsPage/>;
+      title = "News";
+    }
+    return {};
+  },
 
   menuOption: function(option, ev) {
     ev.preventDefault();
@@ -36,17 +38,20 @@ var Screen = React.createClass({
         console.log("welcome week");
         child = <WelcomePage/>;
         title = "Welcome Week";
+        eventPage = false;
         buttonState[0] = buttonState[1] = buttonState[2] = "item";
         buttonState[0] = "active item";
       } else if (option == "news") {
         console.log("news");
         child = <NewsPage/>;
         title = "University of Essex News";
+        eventPage = false;
         buttonState[0] = buttonState[1] = buttonState[2] = "item";
         buttonState[1] = "active item";
       } else if (option == "events") {
         console.log("events");
         child = <EventsPage/>;
+        eventPage = true;
         title = "Events";
         buttonState[0] = buttonState[1] = buttonState[2] = "item";
         buttonState[2] = "active item";
@@ -55,10 +60,12 @@ var Screen = React.createClass({
       if (option == "news") {
         child = <NewsPage/>;
         title = "University of Essex News";
+        eventPage = false;
         buttonState[0] = buttonState[1] = "item";
         buttonState[0] = "active item";
       } else if (option == "events") {
         child = <EventsPage/>;
+        eventPage = true;
         title = "Events";
         buttonState[0] = buttonState[1] = "item";
         buttonState[1] = "active item";
@@ -98,10 +105,19 @@ var Screen = React.createClass({
         </div>;
     }
 
+    if (eventPage) {
+      banner = <BannerHeader theme="alt" key="header" flex={0}>
+        {title}
+        <i className="plus square outline icon"></i>
+      </BannerHeader>;
+    } else {
+      banner = <BannerHeader theme="alt" key="header" flex={0}>{title}</BannerHeader>;
+    }
+
     return (
       <Container>
         <VBox>
-          <BannerHeader theme="alt" key="header" flex={0}>{title}</BannerHeader>
+          {banner}
           <BasicSegment style={{height:"100%"}}>
             {child}
           </BasicSegment>
