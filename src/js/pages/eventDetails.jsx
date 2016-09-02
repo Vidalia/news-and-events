@@ -3,19 +3,16 @@ var Container = require("-components/container");
 var {BasicSegment} = require("-components/segment");
 var {AttachedLabel} = require("-components/label");
 var Page = require("-components/page");
-//var {Listview, Item} = require("-components/listview");
-//var Page = require("-components/page");
-//var {Grid,Row,Col} = require("-components/grid");
 var $ = require("jquery");
-var event;
+var event, id;
 
-//var AekStorage = require("@ombiel/aek-lib/storage");
-//var storage = new AekStorage("EventStorage");
-
-var AddPage = React.createClass({
+var EventDetails = React.createClass({
 
   getInitialState: function() {
     this.onRSSGet = this.onRSSGet.bind(this);
+    id = this.props.value;
+    console.log(id);
+    console.log("fak");
     return {};
   },
 
@@ -24,7 +21,17 @@ var AddPage = React.createClass({
   },
 
   onRSSGet: function (data) {
-    event = data.getElementsByTagName("Event")[0];
+    console.log("right ere m8");
+    for (var i = 0; i < data.getElementsByTagName("Event").length; i++) {
+      console.log("--------------------");
+      console.log(data.getElementsByTagName("Event")[i].getElementsByTagName("EventID")[0].innerHTML);
+      console.log(id);
+      if (data.getElementsByTagName("Event")[i].getElementsByTagName("EventID")[0].innerHTML == id) {
+        event = data.getElementsByTagName("Event")[i];
+        console.log("found");
+        console.log(event);
+      }
+    }
     this.forceUpdate();
   },
 
@@ -35,6 +42,8 @@ var AddPage = React.createClass({
 
   render:function() {
     var loading = !event;
+
+    console.log("motherfucker");
 
     console.log(event);
     console.log(loading);
@@ -79,4 +88,4 @@ var AddPage = React.createClass({
   }
 });
 
-module.exports = AddPage;
+module.exports = EventDetails;

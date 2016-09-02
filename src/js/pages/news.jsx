@@ -23,16 +23,10 @@ var NewsPage = React.createClass({
 
   render:function() {
     var loading = !newsData;
-    console.log("here");
-    console.log(loading);
 
     if (!loading) {
       var stories, story;
       stories = [];
-      console.log("no more loading");
-      console.log(newsData);
-      console.log(newsData[0]);
-      console.log(newsData[0].getElementsByTagName("title")[0].innerHTML);
 
       for (var i = 0; i < newsData.length; i++) {
         story = {title: newsData[i].getElementsByTagName("title")[0].innerHTML,
@@ -41,7 +35,6 @@ var NewsPage = React.createClass({
           date: newsData[i].getElementsByTagName("pubDate")[0].innerHTML};
         stories.push(story);
       }
-      console.log(stories);
 
       return (
         <Page>
@@ -79,7 +72,6 @@ var NewsPage = React.createClass({
       </Container>
     );
   }
-
 });
 
 module.exports = NewsPage;

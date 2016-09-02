@@ -3,17 +3,11 @@ var Container = require("-components/container");
 var {VBox} = require("-components/layout");
 var {BannerHeader} = require("-components/header");
 var {BasicSegment} = require("-components/segment");
-//var AekStorage = require("@ombiel/aek-lib/storage");
-
-//var storage = new AekStorage("News");
 
 var NewsPage = require("./pages/news");
 var EventsPage = require("./pages/events");
 var WelcomePage = require("./pages/welcome");
 var AddPage = require("./pages/addEvent");
-
-//delete the line below
-var EventDetails = require("./pages/eventDetails");
 
 var newStudent, buttonState, child, title, eventPage, banner, addEvent;
 
@@ -38,9 +32,7 @@ var Screen = React.createClass({
   menuOption: function(option, ev) {
     ev.preventDefault();
     if (newStudent) {
-      //console.log("new student detected");
       if (option == "welcome") {
-        //console.log("welcome week");
         child = <WelcomePage/>;
         title = "Welcome Week";
         eventPage = false;
@@ -48,7 +40,6 @@ var Screen = React.createClass({
         buttonState[0] = buttonState[1] = buttonState[2] = "item";
         buttonState[0] = "active item";
       } else if (option == "news") {
-        //console.log("news");
         child = <NewsPage/>;
         title = "University of Essex News";
         eventPage = false;
@@ -56,7 +47,6 @@ var Screen = React.createClass({
         buttonState[0] = buttonState[1] = buttonState[2] = "item";
         buttonState[1] = "active item";
       } else if (option == "events") {
-        //console.log("events");
         child = <EventsPage/>;
         eventPage = true;
         addEvent = false;
@@ -64,9 +54,7 @@ var Screen = React.createClass({
         buttonState[0] = buttonState[1] = buttonState[2] = "item";
         buttonState[2] = "active item";
       } else if (option == "add") {
-        //console.log("Add");
-        //child = <AddPage/>;
-        child = <EventDetails/>;
+        child = <AddPage/>;
         title = "Add Event";
         eventPage = false;
         addEvent = true;
@@ -87,7 +75,6 @@ var Screen = React.createClass({
         buttonState[0] = buttonState[1] = "item";
         buttonState[1] = "active item";
       } else if (option == "add") {
-        //console.log("Add");
         child = <AddPage/>;
         title = "Add Event";
         eventPage = false;
@@ -99,7 +86,6 @@ var Screen = React.createClass({
 
   render:function() {
     var buttonMenu;
-    console.log(buttonState);
 
     if (newStudent) {
       buttonMenu = <div style={{position:"absolute", bottom:"0px", width:"100%", margin:"0", display:"block"}}>
@@ -153,9 +139,7 @@ var Screen = React.createClass({
         {buttonMenu}
       </Container>
     );
-
   }
-
 });
 
 React.render(<Screen/>,document.body);

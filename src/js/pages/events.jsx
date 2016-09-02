@@ -7,14 +7,17 @@ var Page = require("-components/page");
 var {Grid,Row,Col} = require("-components/grid");
 var {AttachedLabel} = require("-components/label");
 var $ = require("jquery");
-var newsData;
-
-//var AekStorage = require("@ombiel/aek-lib/storage");
-//var storage = new AekStorage("EventStorage");
+var newsData, child, childEvent;
 
 var EventDetails = require("./eventDetails");
 
 var EventsPage = React.createClass({
+
+  getInitialState: function() {
+    childEvent = false;
+    child = <EventDetails/>;
+    return {};
+  },
 
   componentDidMount: function() {
     this.getEvents();
@@ -23,10 +26,7 @@ var EventsPage = React.createClass({
   getEvents: function() {
     var RSS = "http://www.essex.ac.uk/news/eventfeed.xml";
     $.get(RSS, function (data) {
-      console.log("function");
-      console.log(data);
       newsData = data.getElementsByTagName("item");
-      console.log(newsData);
     });
   },
 
@@ -52,18 +52,20 @@ var EventsPage = React.createClass({
     return false;
   },
 
+  chosenEvent: function(id) {
+    console.log(id);
+    child = <EventDetails value={id} />;
+    childEvent = true;
+    this.forceUpdate();
+  },
+
   render:function() {
     var loading = !newsData;
-    this.pastOrFuture("Tue, 07 Jun 2016 00:00:00 GMT");
 
     if (!loading) {
       var events, event, pastEvents;
       events = [];
       pastEvents = [];
-      //console.log("no more loading");
-      //console.log(newsData);
-      //console.log(newsData[0]);
-      //console.log(newsData[0].getElementsByTagName("title")[0].innerHTML);
 
       for (var i = 0; i < newsData.length; i++) {
         event = {title: newsData[i].getElementsByTagName("title")[0].innerHTML,
@@ -76,18 +78,24 @@ var EventsPage = React.createClass({
           pastEvents.push(event);
         }
       }
-      //storage.set("Events", events);
-      //storage.set("PastEvents", pastEvents);
-
-      return (
-        <Page>
+      if (childEvent) {
+        return (
+          <Page>
+            <BasicSegment style={{height:"100%"}}>
+              {child}
+            </BasicSegment>
+          </Page>
+        );
+      } else {
+        return (
+          <Page>
             <BasicSegment>
               <Segment>
                 <AttachedLabel top left>Upcoming Events</AttachedLabel>
                 <Listview formatted items={events} itemFactory={(event)=>{
-                  //console.log(news);
+                  var id = event.link.substring(event.link.length - 5, event.link.length);
                   return (
-                    <Item href={event.link}>
+                    <Item onClick={this.chosenEvent.bind(this,id)}>
                         <Grid>
                           <Row>
                             <Col className="one wide column">
@@ -129,8 +137,9 @@ var EventsPage = React.createClass({
                 }}/>
               </Segment>
             </BasicSegment>
-        </Page>
-      );
+          </Page>
+        );
+      }
     }
 
     return (
