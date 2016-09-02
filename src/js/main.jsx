@@ -12,6 +12,9 @@ var EventsPage = require("./pages/events");
 var WelcomePage = require("./pages/welcome");
 var AddPage = require("./pages/addEvent");
 
+//delete the line below
+var EventDetails = require("./pages/eventDetails");
+
 var newStudent, buttonState, child, title, eventPage, banner, addEvent;
 
 var Screen = React.createClass({
@@ -35,9 +38,9 @@ var Screen = React.createClass({
   menuOption: function(option, ev) {
     ev.preventDefault();
     if (newStudent) {
-      console.log("new student detected");
+      //console.log("new student detected");
       if (option == "welcome") {
-        console.log("welcome week");
+        //console.log("welcome week");
         child = <WelcomePage/>;
         title = "Welcome Week";
         eventPage = false;
@@ -45,7 +48,7 @@ var Screen = React.createClass({
         buttonState[0] = buttonState[1] = buttonState[2] = "item";
         buttonState[0] = "active item";
       } else if (option == "news") {
-        console.log("news");
+        //console.log("news");
         child = <NewsPage/>;
         title = "University of Essex News";
         eventPage = false;
@@ -53,7 +56,7 @@ var Screen = React.createClass({
         buttonState[0] = buttonState[1] = buttonState[2] = "item";
         buttonState[1] = "active item";
       } else if (option == "events") {
-        console.log("events");
+        //console.log("events");
         child = <EventsPage/>;
         eventPage = true;
         addEvent = false;
@@ -61,8 +64,9 @@ var Screen = React.createClass({
         buttonState[0] = buttonState[1] = buttonState[2] = "item";
         buttonState[2] = "active item";
       } else if (option == "add") {
-        console.log("Add");
-        child = <AddPage/>;
+        //console.log("Add");
+        //child = <AddPage/>;
+        child = <EventDetails/>;
         title = "Add Event";
         eventPage = false;
         addEvent = true;
@@ -83,7 +87,7 @@ var Screen = React.createClass({
         buttonState[0] = buttonState[1] = "item";
         buttonState[1] = "active item";
       } else if (option == "add") {
-        console.log("Add");
+        //console.log("Add");
         child = <AddPage/>;
         title = "Add Event";
         eventPage = false;

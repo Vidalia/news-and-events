@@ -9,6 +9,9 @@ var {AttachedLabel} = require("-components/label");
 var $ = require("jquery");
 var newsData;
 
+//var AekStorage = require("@ombiel/aek-lib/storage");
+//var storage = new AekStorage("EventStorage");
+
 var EventDetails = require("./eventDetails");
 
 var EventsPage = React.createClass({
@@ -23,6 +26,7 @@ var EventsPage = React.createClass({
       console.log("function");
       console.log(data);
       newsData = data.getElementsByTagName("item");
+      console.log(newsData);
     });
   },
 
@@ -56,10 +60,10 @@ var EventsPage = React.createClass({
       var events, event, pastEvents;
       events = [];
       pastEvents = [];
-      console.log("no more loading");
-      console.log(newsData);
-      console.log(newsData[0]);
-      console.log(newsData[0].getElementsByTagName("title")[0].innerHTML);
+      //console.log("no more loading");
+      //console.log(newsData);
+      //console.log(newsData[0]);
+      //console.log(newsData[0].getElementsByTagName("title")[0].innerHTML);
 
       for (var i = 0; i < newsData.length; i++) {
         event = {title: newsData[i].getElementsByTagName("title")[0].innerHTML,
@@ -72,6 +76,8 @@ var EventsPage = React.createClass({
           pastEvents.push(event);
         }
       }
+      //storage.set("Events", events);
+      //storage.set("PastEvents", pastEvents);
 
       return (
         <Page>
