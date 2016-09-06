@@ -54,7 +54,7 @@ var EventsPage = React.createClass({
                         <Grid>
                           <Row>
                             <Col className="one wide column">
-                              <i className="announcement icon"/>
+                              <i className="certificate icon"/>
                             </Col>
                             <Col className="ten wide column">
                               {event.title}
@@ -79,6 +79,9 @@ var EventsPage = React.createClass({
             <BasicSegment>
               <Segment>
                 <AttachedLabel top left>Upcoming Events</AttachedLabel>
+                <Segment>
+                  <h4>There are currently no upcoming events, please check back at a later date.</h4>
+                </Segment>
               </Segment>
             </BasicSegment>
           </VBox>

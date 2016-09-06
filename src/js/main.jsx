@@ -132,7 +132,7 @@ var Screen = React.createClass({
       <Container>
         <VBox>
           {banner}
-          <BasicSegment style={{height:"100%"}}>
+          <BasicSegment style={{height:"calc(100% + 20px)"}}>
             {child}
           </BasicSegment>
         </VBox>

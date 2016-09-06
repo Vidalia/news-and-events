@@ -121,15 +121,22 @@ var EventsPage = React.createClass({
           </Page>
         );
       }
+    } else {
+      return (
+        <Container>
+          <VBox>
+            <BasicSegment>
+              <Segment>
+                <AttachedLabel top left>Upcoming Events</AttachedLabel>
+                <Segment>
+                  <h4>Sorry there doesn't appear to be any events at this time. Please check back at a later date.</h4>
+                </Segment>
+              </Segment>
+            </BasicSegment>
+          </VBox>
+        </Container>
+      );
     }
-    return (
-      <Container>
-        <VBox>
-          <BasicSegment>
-          </BasicSegment>
-        </VBox>
-      </Container>
-    );
   }
 });
 

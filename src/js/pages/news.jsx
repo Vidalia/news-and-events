@@ -2,7 +2,7 @@ var React = require("-aek/react");
 var Container = require("-components/container");
 var Page = require("-components/page");
 var {VBox} = require("-components/layout");
-var {BasicSegment} = require("-components/segment");
+var {BasicSegment, Segment} = require("-components/segment");
 var {Listview, Item} = require("-components/listview");
 var {Grid,Row,Col} = require("-components/grid");
 var $ = require("jquery");
@@ -64,16 +64,19 @@ var NewsPage = React.createClass({
           </BasicSegment>
         </Page>
       );
+    } else {
+      return (
+        <Container>
+          <VBox>
+            <BasicSegment>
+              <Segment>
+                <h4>Sorry we are unable to find any news, please check back at a later date.</h4>
+              </Segment>
+            </BasicSegment>
+          </VBox>
+        </Container>
+      );
     }
-    return (
-      <Container>
-        <VBox>
-          <BasicSegment>
-            <p>no</p>
-          </BasicSegment>
-        </VBox>
-      </Container>
-    );
   }
 });
 

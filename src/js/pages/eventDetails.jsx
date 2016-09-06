@@ -86,6 +86,8 @@ var EventDetails = React.createClass({
       //   //
       // }
 
+      console.log(event);
+
       return (
         <Page>
           <Container>
@@ -112,6 +114,7 @@ var EventDetails = React.createClass({
         <Container>
           <BasicSegment>
             <AttachedLabel top left>Event Najme</AttachedLabel>
+            <h3>This event does not appear to have any information at this time. Please check back at a later date.</h3>
           </BasicSegment>
         </Container>
       );
