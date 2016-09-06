@@ -1,16 +1,18 @@
 var React = require("-aek/react");
 var Container = require("-components/container");
-var {BasicSegment} = require("-components/segment");
+var {BasicSegment, Segment} = require("-components/segment");
 var {AttachedLabel} = require("-components/label");
 var Page = require("-components/page");
+var Button = require("-components/button");
 var $ = require("jquery");
-var event, id;
+var event, id, favourite, star;
 
 var EventDetails = React.createClass({
 
   getInitialState: function() {
     this.onRSSGet = this.onRSSGet.bind(this);
     id = this.props.value;
+    favourite = false;
     console.log(id);
     console.log("fak");
     return {};
@@ -22,6 +24,7 @@ var EventDetails = React.createClass({
 
   onRSSGet: function (data) {
     console.log("right ere m8");
+    console.log(data);
     for (var i = 0; i < data.getElementsByTagName("Event").length; i++) {
       console.log("--------------------");
       console.log(data.getElementsByTagName("Event")[i].getElementsByTagName("EventID")[0].innerHTML);
@@ -40,6 +43,16 @@ var EventDetails = React.createClass({
     $.get(RSS, this.onRSSGet);
   },
 
+  onClick: function() {
+    if (favourite) {
+      favourite = false;
+    } else {
+      favourite = true;
+    }
+    //this.forceUpdate();
+    console.log("print but why");
+  },
+
   render:function() {
     var loading = !event;
 
@@ -52,6 +65,8 @@ var EventDetails = React.createClass({
       var title = event.getElementsByTagName("EventTitle")[0].innerHTML;
       var author = event.getElementsByTagName("author")[0].innerHTML;
       var startDateTime = event.getElementsByTagName("EventStartDateTime")[0].innerHTML;
+      //var endDateTime = event.getElementsByTagName("EventEndDateTime")[0].innerHTML;
+      //<p>End Date: {endDateTime}</p>
       var venue = event.getElementsByTagName("EventVenue")[0].innerHTML;
       var campus = event.getElementsByTagName("EventCampus")[0].innerHTML;
       var type = event.getElementsByTagName("EventType")[0].innerHTML;
@@ -59,20 +74,36 @@ var EventDetails = React.createClass({
       var content = event.getElementsByTagName("EventContentClean")[0].innerHTML;
       var url = event.getElementsByTagName("EventURL")[0].innerHTML;
 
+      if (favourite) {
+        star = <div className="ui primary"><i onClick={this.onClick()} className="star icon" style={{background:"#FFD700"}}></i></div>;
+      } else {
+        star = <div className="ui primary"><i onClick={this.onClick()} className="empty star icon"></i></div>;
+      }
+
+      // console.log("hey");
+      // console.log(document.getElementById('title').offsetHeight);
+      // if (document.getElementById('title').offsetHeight > 10) {
+      //   //
+      // }
+
       return (
         <Page>
           <Container>
-            <BasicSegment>
-              <AttachedLabel top left>{title}</AttachedLabel>
-              <p>{author}</p>
-              <p>{startDateTime}</p>
-              <p>{venue}</p>
-              <p>{campus}</p>
-              <p>{type}</p>
-              <p>{summary}</p>
-              <p>{content}</p>
-              <p>{url}</p>
-            </BasicSegment>
+            <Segment style={{margin:"14px"}}>
+              <AttachedLabel id="title" top><h3>{title}</h3></AttachedLabel>
+              <br/>
+              <Segment>
+                {star}
+                <p>Author: {author}</p>
+                <p>Start Date: {startDateTime}</p>
+                <p>Venue: {venue}</p>
+                <p>Campus: {campus}</p>
+                <p>Event Type: {type}</p>
+                <p>Summary: {summary}</p>
+                <p>{content}</p>
+                <Button fluid circular href={url} style={{marginTop:"30px"}}>Visit Event Website</Button>
+              </Segment>
+            </Segment>
           </Container>
         </Page>
       );

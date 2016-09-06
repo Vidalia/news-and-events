@@ -31,61 +31,61 @@ var AddPage = React.createClass({
                 <div className="inline fields">
                   <label>Your email address:</label>
                   <div className="field">
-                    <input type="text" name="name" placeholder="John Smith"/>
+                    <input type="text" name="email" placeholder="John Smith"/>
                   </div>
                 </div>
                 <div className="inline fields">
                   <label>Your contect number:</label>
                   <div className="field">
-                    <input type="text" name="name" placeholder="John Smith"/>
+                    <input type="text" name="number" placeholder="John Smith"/>
                   </div>
                 </div>
                 <div className="inline fields">
                   <label>Event title:</label>
                   <div className="field">
-                    <input type="text" name="name" placeholder="John Smith"/>
+                    <input type="text" name="event" placeholder="John Smith"/>
                   </div>
                 </div>
                 <div className="inline fields">
                   <label>Speaker:</label>
                   <div className="field">
-                    <input type="text" name="name" placeholder="John Smith"/>
+                    <input type="text" name="speaker" placeholder="John Smith"/>
                   </div>
                 </div>
                 <div className="inline fields">
                   <label>Event start date:</label>
                   <div className="field">
-                    <input type="text" name="name" placeholder="John Smith"/>
+                    <input type="text" name="startDate" placeholder="John Smith"/>
                   </div>
                 </div>
                 <div className="inline fields">
                   <label>Event end date:</label>
                   <div className="field">
-                    <input type="text" name="name" placeholder="John Smith"/>
+                    <input type="text" name="endDate" placeholder="John Smith"/>
                   </div>
                 </div>
                 <div className="inline fields">
                   <label>Start time:</label>
                   <div className="field">
-                    <input type="text" name="name" placeholder="John Smith"/>
+                    <input type="text" name="startTime" placeholder="John Smith"/>
                   </div>
                 </div>
                 <div className="inline fields">
                   <label>End time:</label>
                   <div className="field">
-                    <input type="text" name="name" placeholder="John Smith"/>
+                    <input type="text" name="endTime" placeholder="John Smith"/>
                   </div>
                 </div>
                 <div className="inline fields">
                   <label>Is this a recurring event?:</label>
                   <div className="field">
-                    <input type="text" name="name" placeholder="John Smith"/>
+                    <input type="text" name="recurring" placeholder="John Smith"/>
                   </div>
                 </div>
                 <div className="inline fields">
                   <label>Venue:</label>
                   <div className="field">
-                    <input type="text" name="name" placeholder="John Smith"/>
+                    <input type="text" name="venue" placeholder="John Smith"/>
                   </div>
                 </div>
             </form>

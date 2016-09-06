@@ -7,7 +7,7 @@ var Page = require("-components/page");
 var {Grid,Row,Col} = require("-components/grid");
 var {AttachedLabel} = require("-components/label");
 var $ = require("jquery");
-var newsData, child, childEvent;
+var eventData, child, childEvent;
 
 var EventDetails = require("./eventDetails");
 
@@ -25,9 +25,12 @@ var EventsPage = React.createClass({
 
   getEvents: function() {
     var RSS = "http://www.essex.ac.uk/news/eventfeed.xml";
-    $.get(RSS, function (data) {
-      newsData = data.getElementsByTagName("item");
-    });
+    $.get(RSS, this.onRSSGet);
+  },
+
+  onRSSGet: function (data) {
+    eventData = data.getElementsByTagName("item");
+    this.forceUpdate();
   },
 
   pastOrFuture: function(eventDate) {
@@ -60,23 +63,24 @@ var EventsPage = React.createClass({
   },
 
   render:function() {
-    var loading = !newsData;
+    var loading = !eventData;
 
     if (!loading) {
       var events, event, pastEvents;
       events = [];
       pastEvents = [];
 
-      for (var i = 0; i < newsData.length; i++) {
-        event = {title: newsData[i].getElementsByTagName("title")[0].innerHTML,
-         description: newsData[i].getElementsByTagName("description")[0].innerHTML,
-          link: newsData[i].getElementsByTagName("link")[0].innerHTML,
-          date: newsData[i].getElementsByTagName("pubDate")[0].innerHTML};
-        if (this.pastOrFuture(newsData[i].getElementsByTagName("pubDate")[0].innerHTML)) {
+      for (var i = 0; i < eventData.length; i++) {
+        event = {title: eventData[i].getElementsByTagName("title")[0].innerHTML,
+         description: eventData[i].getElementsByTagName("description")[0].innerHTML,
+          link: eventData[i].getElementsByTagName("link")[0].innerHTML,
+          date: eventData[i].getElementsByTagName("pubDate")[0].innerHTML};
+        /*if (this.pastOrFuture(eventData[i].getElementsByTagName("pubDate")[0].innerHTML)) {
           events.push(event);
         } else {
           pastEvents.push(event);
-        }
+        }*/
+        events.push(event);
       }
       if (childEvent) {
         return (
@@ -88,7 +92,7 @@ var EventsPage = React.createClass({
         );
       } else {
         return (
-          <Page>
+          <Page style={{height:"calc(100% - 140px)"}}>
             <BasicSegment>
               <Segment>
                 <AttachedLabel top left>Upcoming Events</AttachedLabel>
@@ -113,35 +117,11 @@ var EventsPage = React.createClass({
                   );
                 }}/>
               </Segment>
-              <Segment>
-                <AttachedLabel top left>Past Events - these events have already happened</AttachedLabel>
-                <Listview formatted items={pastEvents} itemFactory={(event)=>{
-                  //console.log(news);
-                  return (
-                    <Item href={event.link}>
-                        <Grid>
-                          <Row>
-                            <Col className="one wide column">
-                              <i className="announcement icon"/>
-                            </Col>
-                            <Col className="ten wide column">
-                              {event.title}
-                            </Col>
-                            <Col className="five wide column">
-                              {event.date.substring(0,16)}
-                            </Col>
-                          </Row>
-                        </Grid>
-                    </Item>
-                  );
-                }}/>
-              </Segment>
             </BasicSegment>
           </Page>
         );
       }
     }
-
     return (
       <Container>
         <VBox>
@@ -150,9 +130,32 @@ var EventsPage = React.createClass({
         </VBox>
       </Container>
     );
-
   }
-
 });
 
 module.exports = EventsPage;
+
+/*
+<Segment>
+  <AttachedLabel top left>Past Events - these events have already happened</AttachedLabel>
+  <Listview formatted items={pastEvents} itemFactory={(event)=>{
+    return (
+      <Item href={event.link}>
+          <Grid>
+            <Row>
+              <Col className="one wide column">
+                <i className="announcement icon"/>
+              </Col>
+              <Col className="ten wide column">
+                {event.title}
+              </Col>
+              <Col className="five wide column">
+                {event.date.substring(0,16)}
+              </Col>
+            </Row>
+          </Grid>
+      </Item>
+    );
+  }}/>
+</Segment>
+*/

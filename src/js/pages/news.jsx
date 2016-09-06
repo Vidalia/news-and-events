@@ -14,11 +14,14 @@ var NewsPage = React.createClass({
     this.getNews();
   },
 
+  onRSSGet: function (data) {
+    newsData = data.getElementsByTagName("item");
+    this.forceUpdate();
+  },
+
   getNews: function() {
     var RSS = "http://www.essex.ac.uk/news/newsfeed.xml";
-    $.get(RSS, function (data) {
-      newsData = data.getElementsByTagName("item");
-    });
+    $.get(RSS, this.onRSSGet);
   },
 
   render:function() {
