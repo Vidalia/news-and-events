@@ -95,24 +95,32 @@ var EventDetails = React.createClass({
       console.log("author before:");
       console.log(author);
       author = this.nullCheck(author);
+      startDateTime = this.nullCheck(startDateTime);
+      venue = this.nullCheck(venue);
+      campus = this.nullCheck(campus);
+      type = this.nullCheck(type);
+      summary = this.nullCheck(summary);
       console.log("author after:");
       console.log(author);
 
       return (
         <Page>
           <Container>
-            <Segment style={{margin:"14px"}}>
-              <AttachedLabel id="title" top><h3>{title}</h3></AttachedLabel>
+            <Segment style={{padding:"0", margin:"14px"}}>
+              <AttachedLabel style={{position:"relative"}} id="title" top><h3>{title}</h3></AttachedLabel>
               <br/>
-              <Segment>
+              <Segment style={{marginTop:"0", marginBottom:"150px"}}>
                 <p>Author: {author}</p>
                 <p>Start Date: {startDateTime}</p>
                 <p>Venue: {venue}</p>
                 <p>Campus: {campus}</p>
                 <p>Event Type: {type}</p>
-                <p>Summary: {summary}</p>
-                <hr/>
+                <p>Summary:</p>
+                {summary}
+                <div className="ui divider"/>
+                Event Desciption:
                 <p>{content}</p>
+                For more information please visit the university's event website.
                 <div style={{width:"100%"}} className="ui icon buttons">
                   <Button onClick={this.goBack} style={{marginTop:"20px", width:"25%"}}>
                     <i style={{paddingRight:"5px"}} className="arrow left icon"></i>
