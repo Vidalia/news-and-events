@@ -3,7 +3,6 @@ var Container = require("-components/container");
 var {VBox} = require("-components/layout");
 var {BannerHeader} = require("-components/header");
 var {BasicSegment} = require("-components/segment");
-
 var NewsPage = require("./pages/news");
 var EventsPage = require("./pages/events");
 var WelcomePage = require("./pages/welcome");
@@ -29,6 +28,10 @@ var Screen = React.createClass({
     return {};
   },
 
+  favourite: function() {
+    console.log("hey");
+  },
+
   menuOption: function(option, ev) {
     ev.preventDefault();
     if (newStudent) {
@@ -39,6 +42,7 @@ var Screen = React.createClass({
         addEvent = false;
         buttonState[0] = buttonState[1] = buttonState[2] = "item";
         buttonState[0] = "active item";
+        console.log("hahah");
       } else if (option == "news") {
         child = <NewsPage/>;
         title = "University of Essex News";

@@ -5,16 +5,15 @@ var {AttachedLabel} = require("-components/label");
 var Page = require("-components/page");
 var Button = require("-components/button");
 var $ = require("jquery");
-var event, id, favourite, star;
+var event, id, favourited, starColour;
 
 var EventDetails = React.createClass({
 
   getInitialState: function() {
     this.onRSSGet = this.onRSSGet.bind(this);
     id = this.props.value;
-    favourite = false;
-    console.log(id);
-    console.log("fak");
+    favourited = false;
+    starColour = "#FFD700";
     return {};
   },
 
@@ -23,16 +22,9 @@ var EventDetails = React.createClass({
   },
 
   onRSSGet: function (data) {
-    console.log("right ere m8");
-    console.log(data);
     for (var i = 0; i < data.getElementsByTagName("Event").length; i++) {
-      console.log("--------------------");
-      console.log(data.getElementsByTagName("Event")[i].getElementsByTagName("EventID")[0].innerHTML);
-      console.log(id);
       if (data.getElementsByTagName("Event")[i].getElementsByTagName("EventID")[0].innerHTML == id) {
         event = data.getElementsByTagName("Event")[i];
-        console.log("found");
-        console.log(event);
       }
     }
     this.forceUpdate();
@@ -43,14 +35,27 @@ var EventDetails = React.createClass({
     $.get(RSS, this.onRSSGet);
   },
 
-  onClick: function() {
-    if (favourite) {
-      favourite = false;
+  nullCheck: function(variable) {
+    if (variable == null || variable == undefined || variable == "" || variable == " ") {
+      return "N/A";
     } else {
-      favourite = true;
+      return variable;
     }
+  },
+
+  goBack: function() {
     //this.forceUpdate();
     console.log("print but why");
+  },
+
+  favourite: function() {
+    if (favourited) {
+      favourited = false;
+      console.log("Unfavourited");
+    } else {
+      favourited = true;
+      console.log("Favourited");
+    }
   },
 
   render:function() {
@@ -74,11 +79,11 @@ var EventDetails = React.createClass({
       var content = event.getElementsByTagName("EventContentClean")[0].innerHTML;
       var url = event.getElementsByTagName("EventURL")[0].innerHTML;
 
-      if (favourite) {
-        star = <div className="ui primary"><i onClick={this.onClick()} className="star icon" style={{background:"#FFD700"}}></i></div>;
-      } else {
-        star = <div className="ui primary"><i onClick={this.onClick()} className="empty star icon"></i></div>;
-      }
+      //if (favourite) {
+        //star = <div className="ui primary"><i onClick={this.onClick()} className="star icon" style={{background:"#FFD700"}}></i></div>;
+      //} else {
+        //star = <div className="ui primary"><i onClick={this.onClick()} className="empty star icon"></i></div>;
+      //}
 
       // console.log("hey");
       // console.log(document.getElementById('title').offsetHeight);
@@ -87,6 +92,11 @@ var EventDetails = React.createClass({
       // }
 
       console.log(event);
+      console.log("author before:");
+      console.log(author);
+      author = this.nullCheck(author);
+      console.log("author after:");
+      console.log(author);
 
       return (
         <Page>
@@ -95,15 +105,27 @@ var EventDetails = React.createClass({
               <AttachedLabel id="title" top><h3>{title}</h3></AttachedLabel>
               <br/>
               <Segment>
-                {star}
                 <p>Author: {author}</p>
                 <p>Start Date: {startDateTime}</p>
                 <p>Venue: {venue}</p>
                 <p>Campus: {campus}</p>
                 <p>Event Type: {type}</p>
                 <p>Summary: {summary}</p>
+                <hr/>
                 <p>{content}</p>
-                <Button fluid circular href={url} style={{marginTop:"30px"}}>Visit Event Website</Button>
+                <div style={{width:"100%"}} className="ui icon buttons">
+                  <Button onClick={this.goBack} style={{marginTop:"20px", width:"25%"}}>
+                    <i style={{paddingRight:"5px"}} className="arrow left icon"></i>
+                    Back
+                  </Button>
+                  <Button href={url} style={{marginTop:"20px", width:"50%"}}>
+                    Visit Event Website
+                  </Button>
+                  <Button onClick={this.favourite} style={{marginTop:"20px", background:{starColour}, width:"25%"}}>
+                    Favourite
+                    <i style={{paddingLeft:"5px"}} className="star icon" iconRight></i>
+                  </Button>
+                </div>
               </Segment>
             </Segment>
           </Container>
@@ -114,7 +136,9 @@ var EventDetails = React.createClass({
         <Container>
           <BasicSegment>
             <AttachedLabel top left>Event Najme</AttachedLabel>
-            <h3>This event does not appear to have any information at this time. Please check back at a later date.</h3>
+            <Segment>
+              <h3>This event does not appear to have any information at this time. Please check back at a later date.</h3>
+            </Segment>
           </BasicSegment>
         </Container>
       );
