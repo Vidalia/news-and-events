@@ -33,7 +33,13 @@ var EventsPage = React.createClass({
     this.forceUpdate();
   },
 
-  pastOrFuture: function(eventDate) {
+  reset: function() {
+    console.log("refreshing from another page");
+    this.forceUpdate();
+  },
+
+  //this function was used to check whether an event was in the past or the future.
+  /*pastOrFuture: function(eventDate) {
     var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
     var eventDay = Number(eventDate.substring(5,7));
@@ -53,7 +59,7 @@ var EventsPage = React.createClass({
       }
     }
     return false;
-  },
+  },*/
 
   chosenEvent: function(id) {
     console.log(id);
@@ -142,6 +148,9 @@ var EventsPage = React.createClass({
 
 module.exports = EventsPage;
 
+
+//The below code was used when the rss feed would return both old and new events, since then the RSS feed has been updated to only new events.
+//This code may no longer be needed, and if so can be deleted.
 /*
 <Segment>
   <AttachedLabel top left>Past Events - these events have already happened</AttachedLabel>

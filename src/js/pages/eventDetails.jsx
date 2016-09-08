@@ -2,10 +2,14 @@ var React = require("-aek/react");
 var Container = require("-components/container");
 var {BasicSegment, Segment} = require("-components/segment");
 var {AttachedLabel} = require("-components/label");
+//var {AekReactRouter,RouterView} = require("-components/router");
 var Page = require("-components/page");
 var Button = require("-components/button");
 var $ = require("jquery");
 var event, id, favourited, starColour;
+
+//var router = new AekReactRouter();
+var EventsPage = require("./events");
 
 var EventDetails = React.createClass({
 
@@ -45,7 +49,9 @@ var EventDetails = React.createClass({
 
   goBack: function() {
     //this.forceUpdate();
+    EventsPage.refresh();
     console.log("print but why");
+    //router.goto()
   },
 
   favourite: function() {
