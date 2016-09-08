@@ -114,19 +114,27 @@ var Screen = React.createClass({
         </div>;
     }
 
-    if (eventPage) {
-      banner = <BannerHeader id="header" theme="alt" key="header" flex={0}>
-        {title}
-        <i className="plus square outline icon" onClick={this.menuOption.bind(this,"add")}></i>
-      </BannerHeader>;
-    } else if (addEvent) {
-      banner = <BannerHeader id="header" theme="alt" key="header" flex={0}>
-        {title}
-        <i className="remove circle icon" onClick={this.menuOption.bind(this,"events")}></i>
-      </BannerHeader>;
-    } else {
-      banner = <BannerHeader id="header" theme="alt" key="header" flex={0}>{title}</BannerHeader>;
-    }
+    //This code is for adding your own event
+    // if (eventPage) {
+    //   banner = <BannerHeader id="header" theme="alt" key="header" flex={0}>
+    //     {title}
+    //     <i className="plus square outline icon" onClick={this.menuOption.bind(this,"add")}></i>
+    //   </BannerHeader>;
+    // } else if (addEvent) {
+    //   banner = <BannerHeader id="header" theme="alt" key="header" flex={0}>
+    //     {title}
+    //     <i className="remove circle icon" onClick={this.menuOption.bind(this,"events")}></i>
+    //   </BannerHeader>;
+    // } else {
+    //   banner = <BannerHeader id="header" theme="alt" key="header" flex={0}>{title}</BannerHeader>;
+    // }
+
+    banner = <BannerHeader id="header" theme="alt" key="header" flex={0}>{title}</BannerHeader>;
+
+    //var clientHeight = document.getElementById('header').clientHeight;
+    console.log("ok")
+    console.log(document.getElementById('header'));
+    //console.log(clientHeight);
 
     return (
       <Container>

@@ -89,9 +89,9 @@ var EventDetails = React.createClass({
         <Page>
           <Container>
             <Segment style={{padding:"0", margin:"14px"}}>
-              <AttachedLabel style={{position:"relative"}} id="title" top><h3>{title}</h3></AttachedLabel>
+              <AttachedLabel style={{position:"relative"}} top><h3 id="detailsLabel">{title}</h3></AttachedLabel>
               <br/>
-              <Segment style={{marginTop:"0", marginBottom:"150px"}}>
+              <Segment id="info">
                 <p>Author: {author}</p>
                 <p>Start Date: {startDateTime}</p>
                 <p>Venue: {venue}</p>

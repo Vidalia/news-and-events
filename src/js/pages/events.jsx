@@ -88,6 +88,7 @@ var EventsPage = React.createClass({
         }*/
         events.push(event);
       }
+      //<Page style={{height:"calc(100% - 140px)"}}>
       if (childEvent) {
         return (
           <Page>
@@ -98,11 +99,11 @@ var EventsPage = React.createClass({
         );
       } else {
         return (
-          <Page style={{height:"calc(100% - 140px)"}}>
+          <Page>
             <BasicSegment>
               <Segment style={{padding:"0"}}>
                 <AttachedLabel id="eventLabel" top>Upcoming Events</AttachedLabel>
-                <Listview style={{margin:"0"}} formatted items={events} itemFactory={(event)=>{
+                <Listview style={{margin:"0 !important"}} formatted items={events} itemFactory={(event)=>{
                   var id = event.link.substring(event.link.length - 5, event.link.length);
                   return (
                     <Item onClick={this.chosenEvent.bind(this,id)}>
