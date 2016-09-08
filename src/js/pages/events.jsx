@@ -91,7 +91,7 @@ var EventsPage = React.createClass({
       if (childEvent) {
         return (
           <Page>
-            <BasicSegment style={{height:"100%"}}>
+            <BasicSegment className="maxHeight">
               {child}
             </BasicSegment>
           </Page>

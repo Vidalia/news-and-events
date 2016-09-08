@@ -103,15 +103,15 @@ var EventDetails = React.createClass({
                 Event Desciption:
                 <p>{content}</p>
                 For more information please visit the university's event website.
-                <div style={{width:"100%"}} className="ui icon buttons">
-                  <Button onClick={this.goBack} style={{marginTop:"20px", width:"25%"}}>
+                <div className="ui icon buttons maxWidth">
+                  <Button onClick={this.goBack} id="secondaryButtonWing">
                     <i style={{paddingRight:"5px"}} className="arrow left icon"></i>
                     Back
                   </Button>
-                  <Button href={url} style={{marginTop:"20px", width:"50%"}}>
+                  <Button href={url} id="secondaryButtonCenter">
                     Visit Event Website
                   </Button>
-                  <Button onClick={this.favourite} style={{marginTop:"20px", background:{starColour}, width:"25%"}}>
+                  <Button onClick={this.favourite} id="secondaryButtonWing" style={{background:{starColour}}}>
                     Favourite
                     <i style={{paddingLeft:"5px"}} className="star icon" iconRight></i>
                   </Button>

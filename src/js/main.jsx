@@ -29,10 +29,6 @@ var Screen = React.createClass({
     return {};
   },
 
-  favourite: function() {
-    console.log("hey");
-  },
-
   menuOption: function(option, ev) {
     ev.preventDefault();
     if (newStudent) {
@@ -92,26 +88,26 @@ var Screen = React.createClass({
     var buttonMenu;
 
     if (newStudent) {
-      buttonMenu = <div style={{position:"absolute", bottom:"0px", width:"100%", margin:"0", display:"block"}}>
-          <div style={{width:"100%", margin:"0"}}  className="ui primary menu">
-            <a style={{width:"33.3%"}} className={buttonState[0]} onClick={this.menuOption.bind(this,"welcome")}>
+      buttonMenu = <div id="menu">
+          <div id="menuContent" className="ui primary menu">
+            <a id="mainButton" className={buttonState[0]} onClick={this.menuOption.bind(this,"welcome")}>
               <i className="certificate icon"></i> Welcome Week
             </a>
-            <a style={{width:"33.3%"}} className={buttonState[1]} onClick={this.menuOption.bind(this,"news")}>
+            <a id="mainButton" className={buttonState[1]} onClick={this.menuOption.bind(this,"news")}>
               <i className="newspaper icon"></i> News
             </a>
-            <a style={{width:"33.3%"}} className={buttonState[2]} onClick={this.menuOption.bind(this,"events")}>
+            <a id="mainButton" className={buttonState[2]} onClick={this.menuOption.bind(this,"events")}>
               <i className="announcement icon"></i> Events
             </a>
           </div>
         </div>;
     } else {
-      buttonMenu = <div style={{position:"absolute", bottom:"0px", width:"100%", margin:"0", display:"block"}}>
-          <div style={{width:"100%", margin:"0"}}  className="ui primary menu">
-            <a style={{width:"50%"}} className={buttonState[0]} onClick={this.menuOption.bind(this,"news")}>
+      buttonMenu = <div id="menu">
+          <div id="menuContent" className="ui primary menu">
+            <a id="altMainButton" className={buttonState[0]} onClick={this.menuOption.bind(this,"news")}>
               <i className="newspaper icon"></i> News
             </a>
-            <a style={{width:"50%"}} className={buttonState[1]} onClick={this.menuOption.bind(this,"events")}>
+            <a id="altMainButton" className={buttonState[1]} onClick={this.menuOption.bind(this,"events")}>
               <i className="announcement icon"></i> Events
             </a>
           </div>
