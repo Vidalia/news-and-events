@@ -115,17 +115,17 @@ var Screen = React.createClass({
     }
 
     if (eventPage) {
-      banner = <BannerHeader theme="alt" key="header" flex={0}>
+      banner = <BannerHeader id="header" theme="alt" key="header" flex={0}>
         {title}
         <i className="plus square outline icon" onClick={this.menuOption.bind(this,"add")}></i>
       </BannerHeader>;
     } else if (addEvent) {
-      banner = <BannerHeader theme="alt" key="header" flex={0}>
+      banner = <BannerHeader id="header" theme="alt" key="header" flex={0}>
         {title}
         <i className="remove circle icon" onClick={this.menuOption.bind(this,"events")}></i>
       </BannerHeader>;
     } else {
-      banner = <BannerHeader theme="alt" key="header" flex={0}>{title}</BannerHeader>;
+      banner = <BannerHeader id="header" theme="alt" key="header" flex={0}>{title}</BannerHeader>;
     }
 
     return (

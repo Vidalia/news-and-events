@@ -46,7 +46,7 @@ var EventsPage = React.createClass({
           <VBox>
             <BasicSegment>
               <Segment>
-                <AttachedLabel top left>Upcoming Events</AttachedLabel>
+                <AttachedLabel top>Upcoming Events</AttachedLabel>
                 <Listview formatted items={events} itemFactory={(event)=>{
                   var id = event.link.substring(event.link.length - 5, event.link.length);
                   return (
@@ -78,9 +78,9 @@ var EventsPage = React.createClass({
           <VBox>
             <BasicSegment>
               <Segment>
-                <AttachedLabel top left>Upcoming Events</AttachedLabel>
+                <AttachedLabel top>Upcoming Events</AttachedLabel>
                 <Segment>
-                  <h4>There are currently no upcoming events, please check back at a later date.</h4>
+                  <h4 id="warning">There are currently no upcoming events, please check back at a later date.</h4>
                 </Segment>
               </Segment>
             </BasicSegment>

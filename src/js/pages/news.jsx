@@ -50,10 +50,10 @@ var NewsPage = React.createClass({
                         <Col className="one wide column">
                           <i className="newspaper icon"/>
                         </Col>
-                        <Col className="ten wide column">
+                        <Col id="newsTitle" className="ten wide column">
                           {news.title}
                         </Col>
-                        <Col className="five wide column">
+                        <Col id="publishDate" className="five wide column">
                           {news.date.substring(0,16)}
                         </Col>
                       </Row>
@@ -70,7 +70,7 @@ var NewsPage = React.createClass({
           <VBox>
             <BasicSegment>
               <Segment>
-                <h4>Sorry we are unable to find any news, please check back at a later date.</h4>
+                <h4 id="warning">Sorry we are unable to find any news, please check back at a later date.</h4>
               </Segment>
             </BasicSegment>
           </VBox>

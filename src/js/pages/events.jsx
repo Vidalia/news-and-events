@@ -100,9 +100,9 @@ var EventsPage = React.createClass({
         return (
           <Page style={{height:"calc(100% - 140px)"}}>
             <BasicSegment>
-              <Segment>
-                <AttachedLabel top left>Upcoming Events</AttachedLabel>
-                <Listview formatted items={events} itemFactory={(event)=>{
+              <Segment style={{padding:"0"}}>
+                <AttachedLabel id="eventLabel" top>Upcoming Events</AttachedLabel>
+                <Listview style={{margin:"0"}} formatted items={events} itemFactory={(event)=>{
                   var id = event.link.substring(event.link.length - 5, event.link.length);
                   return (
                     <Item onClick={this.chosenEvent.bind(this,id)}>
@@ -111,10 +111,10 @@ var EventsPage = React.createClass({
                             <Col className="one wide column">
                               <i className="announcement icon"/>
                             </Col>
-                            <Col className="ten wide column">
+                            <Col id="eventTitle" className="ten wide column">
                               {event.title}
                             </Col>
-                            <Col className="five wide column">
+                            <Col id="eventDate" className="five wide column">
                               {event.date.substring(0,16)}
                             </Col>
                           </Row>
@@ -133,9 +133,9 @@ var EventsPage = React.createClass({
           <VBox>
             <BasicSegment>
               <Segment>
-                <AttachedLabel top left>Upcoming Events</AttachedLabel>
+                <AttachedLabel top>Upcoming Events</AttachedLabel>
                 <Segment>
-                  <h4>Sorry there doesn't appear to be any events at this time. Please check back at a later date.</h4>
+                  <h4 id="warning">Sorry there doesn't appear to be any events at this time. Please check back at a later date.</h4>
                 </Segment>
               </Segment>
             </BasicSegment>
