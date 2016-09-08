@@ -67,17 +67,10 @@ var EventDetails = React.createClass({
   render:function() {
     var loading = !event;
 
-    console.log("motherfucker");
-
-    console.log(event);
-    console.log(loading);
     if (!loading) {
-      console.log("not loading");
       var title = event.getElementsByTagName("EventTitle")[0].innerHTML;
       var author = event.getElementsByTagName("author")[0].innerHTML;
       var startDateTime = event.getElementsByTagName("EventStartDateTime")[0].innerHTML;
-      //var endDateTime = event.getElementsByTagName("EventEndDateTime")[0].innerHTML;
-      //<p>End Date: {endDateTime}</p>
       var venue = event.getElementsByTagName("EventVenue")[0].innerHTML;
       var campus = event.getElementsByTagName("EventCampus")[0].innerHTML;
       var type = event.getElementsByTagName("EventType")[0].innerHTML;
@@ -85,29 +78,12 @@ var EventDetails = React.createClass({
       var content = event.getElementsByTagName("EventContentClean")[0].innerHTML;
       var url = event.getElementsByTagName("EventURL")[0].innerHTML;
 
-      //if (favourite) {
-        //star = <div className="ui primary"><i onClick={this.onClick()} className="star icon" style={{background:"#FFD700"}}></i></div>;
-      //} else {
-        //star = <div className="ui primary"><i onClick={this.onClick()} className="empty star icon"></i></div>;
-      //}
-
-      // console.log("hey");
-      // console.log(document.getElementById('title').offsetHeight);
-      // if (document.getElementById('title').offsetHeight > 10) {
-      //   //
-      // }
-
-      console.log(event);
-      console.log("author before:");
-      console.log(author);
       author = this.nullCheck(author);
       startDateTime = this.nullCheck(startDateTime);
       venue = this.nullCheck(venue);
       campus = this.nullCheck(campus);
       type = this.nullCheck(type);
       summary = this.nullCheck(summary);
-      console.log("author after:");
-      console.log(author);
 
       return (
         <Page>
