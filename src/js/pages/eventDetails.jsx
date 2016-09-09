@@ -93,15 +93,15 @@ var EventDetails = React.createClass({
               <AttachedLabel style={{position:"relative"}} top><h3 id="detailsLabel">{title}</h3></AttachedLabel>
               <br/>
               <Segment id="info">
-                <p>Author: {author}</p>
-                <p>Start Date: {startDateTime}</p>
-                <p>Venue: {venue}</p>
-                <p>Campus: {campus}</p>
-                <p>Event Type: {type}</p>
-                <p>Summary:</p>
+                <p><b>Author: </b>{author}</p>
+                <p><b>Start Date: </b>{startDateTime}</p>
+                <p><b>Venue: </b>{venue}</p>
+                <p><b>Campus: </b>{campus}</p>
+                <p><b>Event Type: </b>{type}</p>
+                <p><b>Summary:</b></p>
                 {summary}
                 <div className="ui divider"/>
-                Event Desciption:
+                <b>Event Desciption:</b>
                 <p>{content}</p>
                 For more information please visit the university's event website.
                 <div className="ui icon buttons maxWidth">

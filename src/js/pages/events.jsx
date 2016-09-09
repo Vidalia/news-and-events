@@ -23,8 +23,6 @@ var EventsPage = React.createClass({
   componentDidMount: function() {
     paddingNeeded = document.getElementById('header').clientHeight + document.getElementById('menu').clientHeight /*+ 14*/;
     paddingNeeded = { paddingBottom: + paddingNeeded + "px"};
-    console.log("after render");
-    console.log(paddingNeeded);
   },
 
   getEvents: function() {
@@ -93,7 +91,6 @@ var EventsPage = React.createClass({
         }*/
         events.push(event);
       }
-      //<Page style={{height:"calc(100% - 140px)"}}>
       if (childEvent) {
         return (
           <Page>

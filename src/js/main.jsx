@@ -9,7 +9,6 @@ var EventsPage = require("./pages/events");
 var WelcomePage = require("./pages/welcome");
 var AddPage = require("./pages/addEvent");
 
-var newStudent, buttonState, child, title, eventPage, banner, addEvent;
 
 var Screen = React.createClass({
 
