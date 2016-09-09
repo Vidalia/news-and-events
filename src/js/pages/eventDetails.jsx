@@ -9,15 +9,12 @@ var event, id, favourited, starColour;
 
 var EventDetails = React.createClass({
 
-  propTypes: {
-    onClick: React.PropTypes.func
-  },
-
   getInitialState: function() {
     this.onRSSGet = this.onRSSGet.bind(this);
     id = this.props.value;
     favourited = false;
-    starColour = "#FFD700";
+    //TODO: need to check whether the user has already favourited this and have it start gold if already favourited instead of always starting grey
+    starColour = { backgroundColor: "#e0e0e0"};
     event = null;
     this.getEvent();
     return {};
@@ -57,10 +54,13 @@ var EventDetails = React.createClass({
     if (favourited) {
       favourited = false;
       console.log("Unfavourited");
+      starColour = { backgroundColor: "#e0e0e0"};
     } else {
       favourited = true;
       console.log("Favourited");
+      starColour = { backgroundColor: "#FFD700"};
     }
+    this.forceUpdate();
   },
 
   render:function() {
@@ -112,7 +112,7 @@ var EventDetails = React.createClass({
                   <Button href={url} id="secondaryButtonCenter">
                     Visit Event Website
                   </Button>
-                  <Button onClick={this.favourite} id="secondaryButtonWing" style={{background:{starColour}}}>
+                  <Button onClick={this.favourite} id="secondaryButtonWing" style={starColour}>
                     Favourite
                     <i style={{paddingLeft:"5px"}} className="star icon" iconRight></i>
                   </Button>
