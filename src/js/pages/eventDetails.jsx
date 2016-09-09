@@ -2,35 +2,37 @@ var React = require("-aek/react");
 var Container = require("-components/container");
 var {BasicSegment, Segment} = require("-components/segment");
 var {AttachedLabel} = require("-components/label");
-//var {AekReactRouter,RouterView} = require("-components/router");
 var Page = require("-components/page");
 var Button = require("-components/button");
 var $ = require("jquery");
 var event, id, favourited, starColour;
 
-//var router = new AekReactRouter();
-var EventsPage = require("./events");
-
 var EventDetails = React.createClass({
+
+  propTypes: {
+    onClick: React.PropTypes.func
+  },
 
   getInitialState: function() {
     this.onRSSGet = this.onRSSGet.bind(this);
     id = this.props.value;
     favourited = false;
     starColour = "#FFD700";
-    return {};
-  },
-
-  componentDidMount: function() {
+    event = null;
     this.getEvent();
+    return {};
   },
 
   onRSSGet: function (data) {
     for (var i = 0; i < data.getElementsByTagName("Event").length; i++) {
       if (data.getElementsByTagName("Event")[i].getElementsByTagName("EventID")[0].innerHTML == id) {
         event = data.getElementsByTagName("Event")[i];
+        console.log("more details");
+        console.log(data.getElementsByTagName("Event")[i]);
       }
     }
+    console.log(event);
+    console.log(id);
     this.forceUpdate();
   },
 
@@ -47,11 +49,8 @@ var EventDetails = React.createClass({
     }
   },
 
-  goBack: function() {
-    //this.forceUpdate();
-    EventsPage.refresh();
-    console.log("print but why");
-    //router.goto()
+  resetHandler: function() {
+    this.props.onClick();
   },
 
   favourite: function() {
@@ -66,6 +65,8 @@ var EventDetails = React.createClass({
 
   render:function() {
     var loading = !event;
+    console.log("event");
+    console.log(event);
 
     if (!loading) {
       var title = event.getElementsByTagName("EventTitle")[0].innerHTML;
@@ -86,7 +87,7 @@ var EventDetails = React.createClass({
       summary = this.nullCheck(summary);
 
       return (
-        <Page>
+        <Page style={{paddingBottom:"14px"}}>
           <Container>
             <Segment style={{padding:"0", margin:"14px"}}>
               <AttachedLabel style={{position:"relative"}} top><h3 id="detailsLabel">{title}</h3></AttachedLabel>
@@ -104,7 +105,7 @@ var EventDetails = React.createClass({
                 <p>{content}</p>
                 For more information please visit the university's event website.
                 <div className="ui icon buttons maxWidth">
-                  <Button onClick={this.goBack} id="secondaryButtonWing">
+                  <Button onClick={this.resetHandler} id="secondaryButtonWing">
                     <i style={{paddingRight:"5px"}} className="arrow left icon"></i>
                     Back
                   </Button>
@@ -125,10 +126,16 @@ var EventDetails = React.createClass({
       return (
         <Container>
           <BasicSegment>
-            <AttachedLabel top left>Event Najme</AttachedLabel>
             <Segment>
-              <h3>This event does not appear to have any information at this time. Please check back at a later date.</h3>
+              <AttachedLabel top left>Event not available</AttachedLabel>
+              <Segment>
+                <h3 id="warning">This event does not appear to have any information at this time. Please check back at a later date.</h3>
+              </Segment>
             </Segment>
+            <Button fluid onClick={this.resetHandler}>
+              <i style={{paddingRight:"5px"}} className="arrow left icon"></i>
+              Back
+            </Button>
           </BasicSegment>
         </Container>
       );

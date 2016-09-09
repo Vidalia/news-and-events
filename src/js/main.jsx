@@ -132,15 +132,15 @@ var Screen = React.createClass({
     banner = <BannerHeader id="header" theme="alt" key="header" flex={0}>{title}</BannerHeader>;
 
     //var clientHeight = document.getElementById('header').clientHeight;
-    console.log("ok")
-    console.log(document.getElementById('header'));
+    //console.log("ok")
+    //console.log(document.getElementById('header'));
     //console.log(clientHeight);
 
     return (
       <Container>
         <VBox>
           {banner}
-          <BasicSegment style={{height:"calc(100% + 20px)"}}>
+          <BasicSegment className="maxHeight">
             {child}
           </BasicSegment>
         </VBox>

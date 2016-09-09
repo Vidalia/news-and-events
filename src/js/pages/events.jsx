@@ -7,7 +7,7 @@ var Page = require("-components/page");
 var {Grid,Row,Col} = require("-components/grid");
 var {AttachedLabel} = require("-components/label");
 var $ = require("jquery");
-var eventData, child, childEvent;
+var eventData, child, childEvent, paddingNeeded;
 
 var EventDetails = require("./eventDetails");
 
@@ -15,12 +15,16 @@ var EventsPage = React.createClass({
 
   getInitialState: function() {
     childEvent = false;
-    child = <EventDetails/>;
+    child = <EventDetails onClick={this.resetHandler}/>;
+    this.getEvents();
     return {};
   },
 
   componentDidMount: function() {
-    this.getEvents();
+    paddingNeeded = document.getElementById('header').clientHeight + document.getElementById('menu').clientHeight /*+ 14*/;
+    paddingNeeded = { paddingBottom: + paddingNeeded + "px"};
+    console.log("after render");
+    console.log(paddingNeeded);
   },
 
   getEvents: function() {
@@ -33,8 +37,8 @@ var EventsPage = React.createClass({
     this.forceUpdate();
   },
 
-  reset: function() {
-    console.log("refreshing from another page");
+  resetHandler: function() {
+    childEvent = false;
     this.forceUpdate();
   },
 
@@ -63,13 +67,14 @@ var EventsPage = React.createClass({
 
   chosenEvent: function(id) {
     console.log(id);
-    child = <EventDetails value={id} />;
+    child = <EventDetails value={id} onClick={this.resetHandler}/>;
     childEvent = true;
     this.forceUpdate();
   },
 
   render:function() {
     var loading = !eventData;
+    //console.log(eventData);
 
     if (!loading) {
       var events, event, pastEvents;
@@ -99,29 +104,43 @@ var EventsPage = React.createClass({
         );
       } else {
         return (
-          <Page>
+          <Page style={paddingNeeded}>
             <BasicSegment>
               <Segment style={{padding:"0"}}>
                 <AttachedLabel id="eventLabel" top>Upcoming Events</AttachedLabel>
                 <Listview style={{margin:"0 !important"}} formatted items={events} itemFactory={(event)=>{
                   var id = event.link.substring(event.link.length - 5, event.link.length);
-                  return (
-                    <Item onClick={this.chosenEvent.bind(this,id)}>
-                        <Grid>
-                          <Row>
-                            <Col className="one wide column">
-                              <i className="announcement icon"/>
-                            </Col>
-                            <Col id="eventTitle" className="ten wide column">
-                              {event.title}
-                            </Col>
-                            <Col id="eventDate" className="five wide column">
-                              {event.date.substring(0,16)}
-                            </Col>
-                          </Row>
-                        </Grid>
-                    </Item>
-                  );
+                  //console.log(event);
+                  // if (event.description == "") {
+                  //   console.log("--------------------------");
+                  //   console.log(event);
+                  //   console.log(event.description);
+                  //   console.log("--------------------------");
+                  // } else {
+                  //   console.log("++++++++++++++++++++++++++");
+                  //   console.log(event);
+                  //   console.log(event.description);
+                  //   console.log("++++++++++++++++++++++++++");
+                  // }
+                  if (event.title != "TBC" && event.title != "TBA") {
+                    return (
+                      <Item onClick={this.chosenEvent.bind(this,id)}>
+                          <Grid>
+                            <Row>
+                              <Col className="one wide column">
+                                <i className="announcement icon"/>
+                              </Col>
+                              <Col id="eventTitle" className="ten wide column">
+                                {event.title}
+                              </Col>
+                              <Col id="eventDate" className="five wide column">
+                                {event.date.substring(0,16)}
+                              </Col>
+                            </Row>
+                          </Grid>
+                      </Item>
+                    );
+                  }
                 }}/>
               </Segment>
             </BasicSegment>

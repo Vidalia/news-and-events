@@ -6,12 +6,20 @@ var {BasicSegment, Segment} = require("-components/segment");
 var {Listview, Item} = require("-components/listview");
 var {Grid,Row,Col} = require("-components/grid");
 var $ = require("jquery");
-var newsData;
+var newsData, paddingNeeded;
 
 var NewsPage = React.createClass({
 
-  componentDidMount: function() {
+  getInitialState: function() {
     this.getNews();
+    return {};
+  },
+
+  componentDidMount: function() {
+    paddingNeeded = document.getElementById('header').clientHeight + document.getElementById('menu').clientHeight /*+ 14*/;
+    paddingNeeded = { paddingBottom: + paddingNeeded + "px"};
+    console.log("after render");
+    console.log(paddingNeeded);
   },
 
   onRSSGet: function (data) {
@@ -40,7 +48,7 @@ var NewsPage = React.createClass({
       }
 
       return (
-        <Page>
+        <Page style={paddingNeeded}>
           <BasicSegment>
             <Listview formatted items={stories} itemFactory={(news)=>{
               return (
@@ -60,7 +68,7 @@ var NewsPage = React.createClass({
                     </Grid>
                 </Item>
               );
-            }}/>;
+            }}/>
           </BasicSegment>
         </Page>
       );
