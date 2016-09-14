@@ -5,13 +5,25 @@ var {BasicSegment, Segment} = require("-components/segment");
 var {Listview, Item} = require("-components/listview");
 var {AttachedLabel} = require("-components/label");
 var {Grid,Row,Col} = require("-components/grid");
+var CampusLocator = require("uoe-campus-awareness/campus-locator");
 var $ = require("jquery");
-var welcomeWeek, events;
+var welcomeWeek, events, campus, location;
 
 var EventsPage = React.createClass({
 
   getInitialState: function() {
     events = [];
+
+    campus = new CampusLocator;
+
+    campus.getCampus()
+    .then(function(result) {
+    console.log(result); // Success
+    location = result.name;
+    }, function(error) {
+    console.error(error); // failed
+    })
+
     return {};
   },
 
@@ -25,6 +37,7 @@ var EventsPage = React.createClass({
   },
 
   onRSSGet: function (data) {
+    //Make sure only the events are scraped for the correct campus
     //welcomeWeek = data.getElementsByTagName("item");
     console.log("rss");
     console.log(data);

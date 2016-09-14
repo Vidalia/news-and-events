@@ -6,8 +6,9 @@ var {Listview, Item} = require("-components/listview");
 var Page = require("-components/page");
 var {Grid,Row,Col} = require("-components/grid");
 var {AttachedLabel} = require("-components/label");
+var CampusLocator = require("uoe-campus-awareness/campus-locator");
 var $ = require("jquery");
-var eventData, child, childEvent, paddingNeeded;
+var eventData, child, childEvent, paddingNeeded, campus, location;
 
 var EventDetails = require("./eventDetails");
 
@@ -16,6 +17,17 @@ var EventsPage = React.createClass({
   getInitialState: function() {
     childEvent = false;
     child = <EventDetails onClick={this.resetHandler}/>;
+    //Need to have this changed by the campus aware
+    campus = new CampusLocator;
+
+    campus.getCampus()
+    .then(function(result) {
+    console.log(result); // Success
+    location = result.name;
+    }, function(error) {
+    console.error(error); // failed
+    })
+
     this.getEvents();
     return {};
   },
@@ -31,7 +43,15 @@ var EventsPage = React.createClass({
   },
 
   onRSSGet: function (data) {
-    eventData = data.getElementsByTagName("item");
+    console.log(location);
+    if (location == "Colchester") {
+      //Only get the colchester stuff
+      eventData = data.getElementsByTagName("item");
+    } else if (location == "Southend") {
+      //Only get the southend stuff
+    } else {
+      console.log("Error unable to resolve: " + campus + " as geo location...");
+    }
     this.forceUpdate();
   },
 
