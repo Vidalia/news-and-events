@@ -47,18 +47,37 @@ var EventDetails = React.createClass({
     }
   },
 
+  ok: function() {
+    console.log("OK!");
+    document.getElementById("disabler").style.display = "none";
+    document.getElementById("doubleCheck").style.display = "none";
+  },
+
+  cancel: function() {
+    document.getElementById("disabler").style.display = "none";
+    document.getElementById("doubleCheck").style.display = "none";
+    if (favourited) {
+      starColour = { backgroundColor: "#e0e0e0"};
+      favourited = false;
+    } else {
+      starColour = { backgroundColor: "#FFD700"};
+      favourited = true;
+    }
+    this.forceUpdate();
+  },
+
   resetHandler: function() {
     this.props.onClick();
   },
 
   favourite: function() {
+    document.getElementById("disabler").style.display = "inline";
+    document.getElementById("doubleCheck").style.display = "inline";
     if (favourited) {
       favourited = false;
-      console.log("Unfavourited");
       starColour = { backgroundColor: "#e0e0e0"};
     } else {
       favourited = true;
-      console.log("Favourited");
       starColour = { backgroundColor: "#FFD700"};
     }
     this.forceUpdate();
@@ -102,6 +121,14 @@ var EventDetails = React.createClass({
                 <p><b>Summary:</b></p>
                 {summary}
                 <div className="ui divider"/>
+                <div id="doubleCheck">
+                  <p>Are you sure you want to add this event to your personal calendar?</p>
+                  <br/>
+                  <div>
+                    <Button onClick={this.ok} className="checkButton">OK</Button>
+                    <Button onClick={this.cancel} className="checkButton" style={{marginLeft:"20px"}}>Cancel</Button>
+                  </div>
+                </div>
                 <b>Event Desciption:</b>
                 <p>{content}</p>
                 For more information please visit the university's event website.
@@ -113,7 +140,7 @@ var EventDetails = React.createClass({
                   <Button href={url} id="secondaryButtonCenter">
                     Visit Event Website
                   </Button>
-                  <Button onClick={this.favourite} id="secondaryButtonWing" style={starColour}>
+                  <Button href="#doubleCheck" data-rel="popup" onClick={this.favourite} id="secondaryButtonWing" style={starColour}>
                     Favourite
                     <i style={{paddingLeft:"5px"}} className="star icon" iconRight></i>
                   </Button>
@@ -121,6 +148,7 @@ var EventDetails = React.createClass({
               </Segment>
             </Segment>
           </Container>
+          <Segment id="disabler"></Segment>
         </Page>
       );
     } else {
