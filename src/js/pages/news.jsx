@@ -16,10 +16,8 @@ var NewsPage = React.createClass({
   },
 
   componentDidMount: function() {
-    paddingNeeded = document.getElementById('header').clientHeight + document.getElementById('menu').clientHeight /*+ 14*/;
+    paddingNeeded = document.getElementById('header').clientHeight + document.getElementById('menu').clientHeight;
     paddingNeeded = { paddingBottom: + paddingNeeded + "px"};
-    console.log("after render");
-    console.log(paddingNeeded);
   },
 
   onRSSGet: function (data) {

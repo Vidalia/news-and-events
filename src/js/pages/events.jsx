@@ -17,16 +17,17 @@ var EventsPage = React.createClass({
   getInitialState: function() {
     childEvent = false;
     child = <EventDetails onClick={this.resetHandler}/>;
-    //Need to have this changed by the campus aware
+
     campus = new CampusLocator;
 
     campus.getCampus()
     .then(function(result) {
-    console.log(result); // Success
-    location = result.name;
+      // Success
+      location = result.name;
     }, function(error) {
-    console.error(error); // failed
-    })
+      // failed
+      console.error(error);
+    });
 
     this.getEvents();
     return {};
@@ -43,16 +44,7 @@ var EventsPage = React.createClass({
   },
 
   onRSSGet: function (data) {
-    console.log(location);
-    if (location == "Colchester") {
-      //Only get the colchester stuff
-      eventData = data.getElementsByTagName("Event");
-      console.log(eventData);
-    } else if (location == "Southend") {
-      //Only get the southend stuff
-    } else {
-      console.log("Error unable to resolve: " + campus + " as geo location...");
-    }
+    eventData = data.getElementsByTagName("Event");
     this.forceUpdate();
   },
 
@@ -62,7 +54,6 @@ var EventsPage = React.createClass({
   },
 
   chosenEvent: function(id) {
-    console.log(id);
     child = <EventDetails value={id} onClick={this.resetHandler}/>;
     childEvent = true;
     this.forceUpdate();
@@ -72,22 +63,24 @@ var EventsPage = React.createClass({
     var loading = !eventData;
 
     if (!loading) {
-      var events, event, pastEvents;
+      var events, event/*, pastEvents*/;
       events = [];
-      pastEvents = [];
+      //pastEvents = [];
 
       for (var i = 0; i < eventData.length; i++) {
-        event = {title: eventData[i].getElementsByTagName("EventTitle")[0].innerHTML,
-          id: eventData[i].getElementsByTagName("EventID")[0].innerHTML,
-          link: eventData[i].getElementsByTagName("EventURL")[0].innerHTML,
-          date: eventData[i].getElementsByTagName("EventStartDateTime")[0].innerHTML};
+        if (eventData[i].getElementsByTagName("EventCampus")[0].innerHTML == location) {
+          event = {title: eventData[i].getElementsByTagName("EventTitle")[0].innerHTML,
+            id: eventData[i].getElementsByTagName("EventID")[0].innerHTML,
+            link: eventData[i].getElementsByTagName("EventURL")[0].innerHTML,
+            date: eventData[i].getElementsByTagName("EventStartDateTime")[0].innerHTML};
+            events.push(event);
+        }
           //Need to somehow seperate html and text from content clean where they are mixed...
-        console.log(eventData[i].getElementsByTagName("EventContentClean")[0]);
-        console.log(eventData[i].getElementsByTagName("EventContentClean")[0].innerHTML.split(""));
+        //console.log(eventData[i].getElementsByTagName("EventContentClean")[0]);
+        //console.log(eventData[i].getElementsByTagName("EventContentClean")[0].innerHTML.split(""));
         // if (eventData[i].getElementsByTagName("EventContentClean")[0]) {
         //
         // }
-        events.push(event);
       }
       if (childEvent) {
         return (
