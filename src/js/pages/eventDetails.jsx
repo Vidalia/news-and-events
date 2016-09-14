@@ -28,6 +28,7 @@ var EventDetails = React.createClass({
         console.log(data.getElementsByTagName("Event")[i]);
       }
     }
+    console.log("event...");
     console.log(event);
     console.log(id);
     this.forceUpdate();

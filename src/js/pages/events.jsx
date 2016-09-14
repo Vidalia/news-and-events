@@ -38,7 +38,7 @@ var EventsPage = React.createClass({
   },
 
   getEvents: function() {
-    var RSS = "http://www.essex.ac.uk/news/eventfeed.xml";
+    var RSS = "https://www.essex.ac.uk/news/eventPocketEssexFeed.xml";
     $.get(RSS, this.onRSSGet);
   },
 
@@ -46,7 +46,8 @@ var EventsPage = React.createClass({
     console.log(location);
     if (location == "Colchester") {
       //Only get the colchester stuff
-      eventData = data.getElementsByTagName("item");
+      eventData = data.getElementsByTagName("Event");
+      console.log(eventData);
     } else if (location == "Southend") {
       //Only get the southend stuff
     } else {
@@ -100,10 +101,10 @@ var EventsPage = React.createClass({
       pastEvents = [];
 
       for (var i = 0; i < eventData.length; i++) {
-        event = {title: eventData[i].getElementsByTagName("title")[0].innerHTML,
-         description: eventData[i].getElementsByTagName("description")[0].innerHTML,
-          link: eventData[i].getElementsByTagName("link")[0].innerHTML,
-          date: eventData[i].getElementsByTagName("pubDate")[0].innerHTML};
+        event = {title: eventData[i].getElementsByTagName("EventTitle")[0].innerHTML,
+          id: eventData[i].getElementsByTagName("EventID")[0].innerHTML,
+          link: eventData[i].getElementsByTagName("EventURL")[0].innerHTML,
+          date: eventData[i].getElementsByTagName("EventStartDateTime")[0].innerHTML};
         /*if (this.pastOrFuture(eventData[i].getElementsByTagName("pubDate")[0].innerHTML)) {
           events.push(event);
         } else {
@@ -126,7 +127,11 @@ var EventsPage = React.createClass({
               <Segment style={{padding:"0"}}>
                 <AttachedLabel id="eventLabel" top>Upcoming Events</AttachedLabel>
                 <Listview style={{margin:"0 !important"}} formatted items={events} itemFactory={(event)=>{
-                  var id = event.link.substring(event.link.length - 5, event.link.length);
+                  var id = event.id;
+                  console.log("ID search");
+                  console.log(event);
+                  console.log(id);
+                  //console.log(event.innerHTML.getElementsByTagName("EventID"));
                   //console.log(event);
                   // if (event.description == "") {
                   //   console.log("--------------------------");
