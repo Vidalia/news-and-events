@@ -6,7 +6,7 @@ var Page = require("-components/page");
 var Button = require("-components/button");
 var $ = require("jquery");
 var request = require("-aek/request");
-var event, id, favourited, starColour;
+var event, id, favourited, starColour, userInfo, username;
 
 //TODO: change the way the favourite button works so that students are unable to remove events fromtheir calendar after favouriting
 //TODO: Write a better message to appear on the popup warning them that they will not be able to remove the event.
@@ -24,8 +24,14 @@ var EventDetails = React.createClass({
     event = null;
     this.getEvent();
     this.addEventToCalendar();
+    console.log(JSON.parse(localStorage["cache_/campusm/sso/state"]));
+    userInfo = JSON.parse(localStorage["cache_/campusm/sso/state"]).data;
+    console.log("this..");
+    console.log(userInfo);
+    username = userInfo.serviceUsername_363;
+    console.log(username);
+
     return {};
-    //var username = JSON.parse();
   },
 
   //Requests and passes the xml feed into the onRSSGet function for the data to be collected.
@@ -62,7 +68,7 @@ var EventDetails = React.createClass({
     // $.get(RSS, this.onRSSGet);
 
     request.action("EVENTFEED")
-    .send({EID: '10827', UID: 'mdovey'})
+    .send({EID: '10862', UID: 'mdovey'})
     .end((error, response) => {
       if (error) {
         return console.error(error);

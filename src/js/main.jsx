@@ -18,6 +18,7 @@ var Screen = React.createClass({
     newStudent = true;
     //eventPage = false;
     //addEvent = false;
+    //Initialise the first menu option to be active and to be displayed by default.
     if (newStudent) {
       buttonState = ["active item","item","item"];
       child = <WelcomePage/>;

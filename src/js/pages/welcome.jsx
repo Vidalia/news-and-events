@@ -10,6 +10,7 @@ var $ = require("jquery");
 var events, campus, location;
 
 //TODO: I need to implement campus aware for the welcome week if that is even needed. Does south end have a welcome week?
+//TODO: Create a loading screen that will pop up to cover the twig code. or at least check whether or not there issomething takign ages to load here causing the render to be delayed.
 
 var EventsPage = React.createClass({
 
