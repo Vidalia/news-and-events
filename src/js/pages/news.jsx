@@ -10,24 +10,27 @@ var newsData, paddingNeeded;
 
 var NewsPage = React.createClass({
 
+  //Setting the initial state of essential variables and running crucial functions needed for functionality.
   getInitialState: function() {
     this.getNews();
     return {};
   },
 
+  //Once the screeen has been successfully rendered gather the height and determine padding needed.
   componentDidMount: function() {
     paddingNeeded = document.getElementById('header').clientHeight + document.getElementById('menu').clientHeight;
     paddingNeeded = { paddingBottom: + paddingNeeded + "px"};
   },
 
-  onRSSGet: function (data) {
-    newsData = data.getElementsByTagName("item");
-    this.forceUpdate();
-  },
-
+  //Parse the event feed into the onRSSGet function in order to gather the event data.
   getNews: function() {
     var RSS = "http://www.essex.ac.uk/news/newsfeed.xml";
     $.get(RSS, this.onRSSGet);
+  },
+
+  onRSSGet: function (data) {
+    newsData = data.getElementsByTagName("item");
+    this.forceUpdate();
   },
 
   render:function() {
@@ -37,6 +40,7 @@ var NewsPage = React.createClass({
       var stories, story;
       stories = [];
 
+      //Create an array of all stories with the needed data.
       for (var i = 0; i < newsData.length; i++) {
         story = {title: newsData[i].getElementsByTagName("title")[0].innerHTML,
          description: newsData[i].getElementsByTagName("description")[0].innerHTML,

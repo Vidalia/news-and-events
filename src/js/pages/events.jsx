@@ -14,12 +14,14 @@ var EventDetails = require("./eventDetails");
 
 var EventsPage = React.createClass({
 
+  //Setting the initial state of essential variables and running crucial functions needed for functionality.
   getInitialState: function() {
     childEvent = false;
     child = <EventDetails onClick={this.resetHandler}/>;
 
     campus = new CampusLocator;
 
+    //Retrieve the name of the campus that the user in currently at.
     campus.getCampus()
     .then(function(result) {
       // Success
@@ -33,26 +35,31 @@ var EventsPage = React.createClass({
     return {};
   },
 
+  //Once the screeen has been successfully rendered gather the height and determine padding needed.
   componentDidMount: function() {
     paddingNeeded = document.getElementById('header').clientHeight + document.getElementById('menu').clientHeight;
     paddingNeeded = { paddingBottom: + paddingNeeded + "px"};
   },
 
+  //Parse the event feed into the onRSSGet function in order to gather the event data.
   getEvents: function() {
     var RSS = "https://www.essex.ac.uk/news/eventPocketEssexFeed.xml";
     $.get(RSS, this.onRSSGet);
   },
 
+  //Gather all elements named 'Event' and update the screen to use the data.
   onRSSGet: function (data) {
     eventData = data.getElementsByTagName("Event");
     this.forceUpdate();
   },
 
+  //This function is called by the eventDetails screen to reset the events page from displaying a specific event to displaying all events.
   resetHandler: function() {
     childEvent = false;
     this.forceUpdate();
   },
 
+  //Displaying the specific event chosen by the user.
   chosenEvent: function(id) {
     child = <EventDetails value={id} onClick={this.resetHandler}/>;
     childEvent = true;
@@ -62,10 +69,12 @@ var EventsPage = React.createClass({
   render:function() {
     var loading = !eventData;
 
+    //If the event data was successfully retrieved and the screen is no longer loading.
     if (!loading) {
       var events, event;
       events = [];
 
+      //Populate the events array with events corresponding to the campus that the user is from/on.
       for (var i = 0; i < eventData.length; i++) {
         if (eventData[i].getElementsByTagName("EventCampus")[0].innerHTML === location) {
           event = {title: eventData[i].getElementsByTagName("EventTitle")[0].innerHTML,
@@ -77,10 +86,12 @@ var EventsPage = React.createClass({
         //TODO: Need to somehow seperate html and text from content clean where they are mixed...
         //console.log(eventData[i].getElementsByTagName("EventContentClean")[0]);
         //console.log(eventData[i].getElementsByTagName("EventContentClean")[0].innerHTML.split(""));
-        // if (eventData[i].getElementsByTagName("EventContentClean")[0]) {
+        //if (eventData[i].getElementsByTagName("EventContentClean")[0]) {
         //
-        // }
+        //}
       }
+
+      //If the user has selected an event, then render the page to display that event rather than the list of all events.
       if (childEvent) {
         return (
           <Page>
@@ -89,6 +100,7 @@ var EventsPage = React.createClass({
             </BasicSegment>
           </Page>
         );
+      //If an event has not yet been chosen, then display the list of all events.
       } else {
         return (
           <Page style={paddingNeeded}>
@@ -122,6 +134,7 @@ var EventsPage = React.createClass({
           </Page>
         );
       }
+    //If cant connect or gather data then render the page as follows and display the warning message notifying the user.
     } else {
       return (
         <Container>

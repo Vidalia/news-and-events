@@ -54,10 +54,13 @@ var EventDetails = React.createClass({
   },
 
   addEventToCalendar: function() {
+    //Getting this error with the below commented out code:
+    //No 'Access-Control-Allow-Origin' header is present on the requested resource.
     // var RSS = "http://www.essex.ac.uk/campusm/ews/AddEventToCalendar.ashx";
     // console.log("RSS check");
     // console.log(RSS);
     // $.get(RSS, this.onRSSGet);
+
     request.action("EVENTFEED")
     .send({EID: '10827', UID: 'mdovey'})
     .end((error, response) => {

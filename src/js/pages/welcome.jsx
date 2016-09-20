@@ -29,6 +29,7 @@ var EventsPage = React.createClass({
     return {};
   },
 
+  //Parse the event feed into the onRSSGet function in order to gather the event data.
   getEvents: function() {
     var RSS = "https://www.essex.ac.uk/news/eventPocketEssexFeed.xml";
     $.get(RSS, this.onRSSGet);
