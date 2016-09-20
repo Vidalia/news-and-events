@@ -13,6 +13,7 @@ var newStudent, buttonState, child, title, banner/*, addEvent, eventPage*/;
 
 var Screen = React.createClass({
 
+  //Setting the initial state of essential variables and running crucial functions needed for functionality.
   getInitialState: function() {
     newStudent = true;
     //eventPage = false;
@@ -29,6 +30,7 @@ var Screen = React.createClass({
     return {};
   },
 
+  //Building menu based on student status (if they are a new student or not).
   menuOption: function(option, ev) {
     ev.preventDefault();
     if (newStudent) {
@@ -59,6 +61,7 @@ var Screen = React.createClass({
         //eventPage = false;
         //addEvent = true;
       }
+    //If not a student then setup and initialise all options but the welcome week.
     } else {
       if (option === "news") {
         child = <NewsPage/>;
@@ -87,6 +90,7 @@ var Screen = React.createClass({
   render:function() {
     var buttonMenu;
 
+    //If the user is a new student then the menu options should also display the welcome week page.
     if (newStudent) {
       buttonMenu = <div id="menu">
           <div id="menuContent" className="ui primary menu">
@@ -102,6 +106,7 @@ var Screen = React.createClass({
           </div>
         </div>;
     } else {
+      //If not a new student then do not display the welcome week menu option.
       buttonMenu = <div id="menu">
           <div id="menuContent" className="ui primary menu">
             <a id="altMainButton" className={buttonState[0]} onClick={this.menuOption.bind(this,"news")}>

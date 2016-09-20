@@ -13,6 +13,7 @@ var events, campus, location;
 
 var EventsPage = React.createClass({
 
+  //Setting the initial state of essential variables and running crucial functions needed for functionality.
   getInitialState: function() {
     events = [];
     campus = new CampusLocator;
@@ -23,11 +24,9 @@ var EventsPage = React.createClass({
     }, function(error) {
       console.error(error); // failed
     });
-    return {};
-  },
 
-  componentDidMount: function() {
     this.getEvents();
+    return {};
   },
 
   getEvents: function() {
