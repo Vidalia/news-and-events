@@ -34,7 +34,7 @@ var EventsPage = React.createClass({
   },
 
   componentDidMount: function() {
-    paddingNeeded = document.getElementById('header').clientHeight + document.getElementById('menu').clientHeight /*+ 14*/;
+    paddingNeeded = document.getElementById('header').clientHeight + document.getElementById('menu').clientHeight;
     paddingNeeded = { paddingBottom: + paddingNeeded + "px"};
   },
 
@@ -63,19 +63,18 @@ var EventsPage = React.createClass({
     var loading = !eventData;
 
     if (!loading) {
-      var events, event/*, pastEvents*/;
+      var events, event;
       events = [];
-      //pastEvents = [];
 
       for (var i = 0; i < eventData.length; i++) {
-        if (eventData[i].getElementsByTagName("EventCampus")[0].innerHTML == location) {
+        if (eventData[i].getElementsByTagName("EventCampus")[0].innerHTML === location) {
           event = {title: eventData[i].getElementsByTagName("EventTitle")[0].innerHTML,
             id: eventData[i].getElementsByTagName("EventID")[0].innerHTML,
             link: eventData[i].getElementsByTagName("EventURL")[0].innerHTML,
             date: eventData[i].getElementsByTagName("EventStartDateTime")[0].innerHTML};
             events.push(event);
         }
-          //Need to somehow seperate html and text from content clean where they are mixed...
+        //TODO: Need to somehow seperate html and text from content clean where they are mixed...
         //console.log(eventData[i].getElementsByTagName("EventContentClean")[0]);
         //console.log(eventData[i].getElementsByTagName("EventContentClean")[0].innerHTML.split(""));
         // if (eventData[i].getElementsByTagName("EventContentClean")[0]) {
@@ -98,7 +97,7 @@ var EventsPage = React.createClass({
                 <AttachedLabel id="eventLabel" top>Upcoming Events</AttachedLabel>
                 <Listview style={{margin:"0 !important"}} formatted items={events} itemFactory={(event)=>{
                   var id = event.id;
-                  if (event.title != "TBC" && event.title != "TBA") {
+                  if (event.title !== "TBC" && event.title !== "TBA") {
                     return (
                       <Item onClick={this.chosenEvent.bind(this,id)}>
                           <Grid>

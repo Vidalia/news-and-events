@@ -7,23 +7,22 @@ var {AttachedLabel} = require("-components/label");
 var {Grid,Row,Col} = require("-components/grid");
 var CampusLocator = require("uoe-campus-awareness/campus-locator");
 var $ = require("jquery");
-var welcomeWeek, events, campus, location;
+var events, campus, location;
+
+//TODO: I need to implement campus aware for the welcome week if that is even needed. Does south end have a welcome week?
 
 var EventsPage = React.createClass({
 
   getInitialState: function() {
     events = [];
-
     campus = new CampusLocator;
 
     campus.getCampus()
     .then(function(result) {
-    console.log(result); // Success
-    location = result.name;
+      location = result.name; // Success
     }, function(error) {
-    console.error(error); // failed
-    })
-
+      console.error(error); // failed
+    });
     return {};
   },
 
@@ -37,12 +36,8 @@ var EventsPage = React.createClass({
   },
 
   onRSSGet: function (data) {
-    //Make sure only the events are scraped for the correct campus
-    //welcomeWeek = data.getElementsByTagName("item");
-    console.log("rss");
-    console.log(data);
     for (var i = 0; i < data.getElementsByTagName("Event").length; i++) {
-      if (data.getElementsByTagName("Event")[i].getElementsByTagName("EventType")[0].innerHTML == "welcomeweek") {
+      if (data.getElementsByTagName("Event")[i].getElementsByTagName("EventType")[0].innerHTML === "welcomeweek") {
         events.push(data.getElementsByTagName("Event")[i]);
       }
     }

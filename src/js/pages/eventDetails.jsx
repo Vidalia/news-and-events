@@ -22,15 +22,10 @@ var EventDetails = React.createClass({
 
   onRSSGet: function (data) {
     for (var i = 0; i < data.getElementsByTagName("Event").length; i++) {
-      if (data.getElementsByTagName("Event")[i].getElementsByTagName("EventID")[0].innerHTML == id) {
+      if (data.getElementsByTagName("Event")[i].getElementsByTagName("EventID")[0].innerHTML === id) {
         event = data.getElementsByTagName("Event")[i];
-        console.log("more details");
-        console.log(data.getElementsByTagName("Event")[i]);
       }
     }
-    console.log("event...");
-    console.log(event);
-    console.log(id);
     this.forceUpdate();
   },
 
@@ -48,7 +43,6 @@ var EventDetails = React.createClass({
   },
 
   ok: function() {
-    console.log("OK!");
     document.getElementById("disabler").style.display = "none";
     document.getElementById("doubleCheck").style.display = "none";
   },
@@ -85,8 +79,6 @@ var EventDetails = React.createClass({
 
   render:function() {
     var loading = !event;
-    console.log("event");
-    console.log(event);
 
     if (!loading) {
       var title = event.getElementsByTagName("EventTitle")[0].innerHTML;

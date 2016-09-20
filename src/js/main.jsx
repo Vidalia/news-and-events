@@ -9,14 +9,14 @@ var EventsPage = require("./pages/events");
 var WelcomePage = require("./pages/welcome");
 var AddPage = require("./pages/addEvent");
 
-var newStudent, buttonState, child, title, banner, addEvent, eventPage;
+var newStudent, buttonState, child, title, banner/*, addEvent, eventPage*/;
 
 var Screen = React.createClass({
 
   getInitialState: function() {
     newStudent = true;
-    eventPage = false;
-    addEvent = false;
+    //eventPage = false;
+    //addEvent = false;
     if (newStudent) {
       buttonState = ["active item","item","item"];
       child = <WelcomePage/>;
@@ -32,53 +32,53 @@ var Screen = React.createClass({
   menuOption: function(option, ev) {
     ev.preventDefault();
     if (newStudent) {
-      if (option == "welcome") {
+      if (option === "welcome") {
         child = <WelcomePage/>;
         title = "Welcome Week";
-        eventPage = false;
-        addEvent = false;
+        //eventPage = false;
+        //addEvent = false;
         buttonState[0] = buttonState[1] = buttonState[2] = "item";
         buttonState[0] = "active item";
-      } else if (option == "news") {
+      } else if (option === "news") {
         child = <NewsPage/>;
         title = "University of Essex News";
-        eventPage = false;
-        addEvent = false;
+        //eventPage = false;
+        //addEvent = false;
         buttonState[0] = buttonState[1] = buttonState[2] = "item";
         buttonState[1] = "active item";
-      } else if (option == "events") {
+      } else if (option === "events") {
         child = <EventsPage/>;
-        eventPage = true;
-        addEvent = false;
+        //eventPage = true;
+        //addEvent = false;
         title = "University of Essex Events";
         buttonState[0] = buttonState[1] = buttonState[2] = "item";
         buttonState[2] = "active item";
-      } else if (option == "add") {
+      } else if (option === "add") {
         child = <AddPage/>;
         title = "Add Event";
-        eventPage = false;
-        addEvent = true;
+        //eventPage = false;
+        //addEvent = true;
       }
     } else {
-      if (option == "news") {
+      if (option === "news") {
         child = <NewsPage/>;
         title = "University of Essex News";
-        eventPage = false;
-        addEvent = false;
+        //eventPage = false;
+        //addEvent = false;
         buttonState[0] = buttonState[1] = "item";
         buttonState[0] = "active item";
-      } else if (option == "events") {
+      } else if (option === "events") {
         child = <EventsPage/>;
-        eventPage = true;
-        addEvent = false;
+        //eventPage = true;
+        //addEvent = false;
         title = "University of Essex Events";
         buttonState[0] = buttonState[1] = "item";
         buttonState[1] = "active item";
-      } else if (option == "add") {
+      } else if (option === "add") {
         child = <AddPage/>;
         title = "Add Event";
-        eventPage = false;
-        addEvent = true;
+        //eventPage = false;
+        //addEvent = true;
       }
     }
     this.forceUpdate();
