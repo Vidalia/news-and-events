@@ -1,6 +1,6 @@
-<< 
+<<
 @configure
-  title:"My Screen"
+  title:"News and Events"
   scripts:[
     {
       "dev":"https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js",
@@ -12,5 +12,32 @@
     "main"
   ]
 >>
+
+<< block 'init': >>
+
+  {% set service = aek.get_soap_client("CONNECT") %}
+  {{ service.override_location }}
+  {{ service.cache_wsdl }}
+  {# force user to login #}
+  {% set user_creds = service.user_credentials %}
+
+  {% if aek.action in ["EVENTFEED"] %}
+    {% set params = user_creds|merge(aek.request("params")|default('{}')|json_decode(true)) %}
+    {% set response = service.call(aek.action,params) %}
+    {% set error = service.get_error %}
+    {% if error %}
+      {{ aek.json({"error":error}) }}
+    {% else %}
+      {{ aek.json(response) }}
+    {% endif %}
+  {% endif %}
+
+  {% if aek.action == "login" %}
+    {% set loginResponse = service.call("login",user_creds) %}
+    {% if not loginResponse %}
+      {{ service.reject_login() }}
+    {% endif %}
+  {% endif %}
+<< end >>
 
 << extend "templates/master.ect" >>

@@ -5,6 +5,7 @@ var {AttachedLabel} = require("-components/label");
 var Page = require("-components/page");
 var Button = require("-components/button");
 var $ = require("jquery");
+var request = require("-aek/request");
 var event, id, favourited, starColour;
 
 //TODO: change the way the favourite button works so that students are unable to remove events fromtheir calendar after favouriting
@@ -22,7 +23,15 @@ var EventDetails = React.createClass({
     starColour = {backgroundColor: "#e0e0e0"};
     event = null;
     this.getEvent();
+    this.addEventToCalendar();
     return {};
+    //var username = JSON.parse();
+  },
+
+  //Requests and passes the xml feed into the onRSSGet function for the data to be collected.
+  getEvent: function() {
+    var RSS = "https://www.essex.ac.uk/news/eventPocketEssexFeed.xml";
+    $.get(RSS, this.onRSSGet);
   },
 
   //Getting specific event xml and updating the state of the screen to employ it.
@@ -35,12 +44,6 @@ var EventDetails = React.createClass({
     this.forceUpdate();
   },
 
-  //Requests and passes the xml feed into the onRSSGet function for the data to be collected.
-  getEvent: function() {
-    var RSS = "https://www.essex.ac.uk/news/eventPocketEssexFeed.xml";
-    $.get(RSS, this.onRSSGet);
-  },
-
   //Checking if variables initialised with xml data are null or empty and if so return 'N/A' otherwise return the variable.
   nullCheck: function(variable) {
     if (variable == null || variable == undefined || variable == "" || variable == " ") {
@@ -48,6 +51,22 @@ var EventDetails = React.createClass({
     } else {
       return variable;
     }
+  },
+
+  addEventToCalendar: function() {
+    // var RSS = "http://www.essex.ac.uk/campusm/ews/AddEventToCalendar.ashx";
+    // console.log("RSS check");
+    // console.log(RSS);
+    // $.get(RSS, this.onRSSGet);
+    request.action("EVENTFEED")
+    .send({EID: '10827', UID: 'mdovey'})
+    .end((error, response) => {
+      if (error) {
+        return console.error(error);
+      } else {
+        return console.log(response);
+      }
+    });
   },
 
   //Closes the popup and re-enables the functionality of the app, also allowing all changes made by the favourite button to be kept.
