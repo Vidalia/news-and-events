@@ -144,7 +144,8 @@ var Screen = React.createClass({
         <VBox>
           {banner}
           <BasicSegment className="maxHeight">
-            {child}
+            {/* {child} */}
+            <EventsPage/>
           </BasicSegment>
         </VBox>
         {buttonMenu}
