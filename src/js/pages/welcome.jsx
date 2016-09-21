@@ -9,10 +9,9 @@ var CampusLocator = require("uoe-campus-awareness/campus-locator");
 var $ = require("jquery");
 var events, campus, location;
 
-//TODO: I need to implement campus aware for the welcome week if that is even needed. Does south end have a welcome week?
-//TODO: Create a loading screen that will pop up to cover the twig code. or at least check whether or not there issomething takign ages to load here causing the render to be delayed.
+//TODO: I need to implement campus aware for the welcome week for southend.
 
-var EventsPage = React.createClass({
+var WelcomePage = React.createClass({
 
   //Setting the initial state of essential variables and running crucial functions needed for functionality.
   getInitialState: function() {
@@ -24,9 +23,11 @@ var EventsPage = React.createClass({
       location = result.name; // Success
     }, function(error) {
       console.error(error); // failed
+      location = "Colchester";
     });
 
     this.getEvents();
+
     return {};
   },
 
@@ -37,8 +38,10 @@ var EventsPage = React.createClass({
   },
 
   onRSSGet: function (data) {
+    var currentEvent;
     for (var i = 0; i < data.getElementsByTagName("Event").length; i++) {
-      if (data.getElementsByTagName("Event")[i].getElementsByTagName("EventType")[0].innerHTML === "welcomeweek") {
+      currentEvent = data.getElementsByTagName("Event")[i];
+      if (currentEvent.getElementsByTagName("EventType")[0].innerHTML === "welcomeweek" && currentEvent.getElementsByTagName("EventCampus")[0].innerHTML === location) {
         events.push(data.getElementsByTagName("Event")[i]);
       }
     }
@@ -100,4 +103,4 @@ var EventsPage = React.createClass({
   }
 });
 
-module.exports = EventsPage;
+module.exports = WelcomePage;

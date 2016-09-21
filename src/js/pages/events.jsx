@@ -102,6 +102,7 @@ var EventsPage = React.createClass({
         );
       //If an event has not yet been chosen, then display the list of all events.
       } else {
+        console.log(events);
         return (
           <Page style={paddingNeeded}>
             <BasicSegment>

@@ -6,12 +6,7 @@ var Page = require("-components/page");
 var Button = require("-components/button");
 var $ = require("jquery");
 var request = require("-aek/request");
-var event, id, favourited, starColour, userInfo, username;
-
-//TODO: change the way the favourite button works so that students are unable to remove events fromtheir calendar after favouriting
-//TODO: Write a better message to appear on the popup warning them that they will not be able to remove the event.
-//TODO: need to check whether the user has already favourited this and have it start gold if already favourited instead of always starting grey
-//TODO: These events are subject to change and the original event page should be checked for any changes.
+var event, id, favourited, starColour, userInfo, username, prevAdded;
 
 var EventDetails = React.createClass({
 
@@ -19,17 +14,21 @@ var EventDetails = React.createClass({
   getInitialState: function() {
     this.onRSSGet = this.onRSSGet.bind(this);
     id = this.props.value;
-    favourited = false;
-    starColour = {backgroundColor: "#e0e0e0"};
-    event = null;
     this.getEvent();
-    this.addEventToCalendar();
-    console.log(JSON.parse(localStorage["cache_/campusm/sso/state"]));
+
+    prevAdded = false; //Has the user already added the event to thier calendar?
+
+    if (prevAdded) {
+      favourited = true;
+      starColour = { backgroundColor: "#FFD700"};
+    } else {
+      favourited = false;
+      starColour = {backgroundColor: "#e0e0e0"};
+    }
+
+    event = null;
     userInfo = JSON.parse(localStorage["cache_/campusm/sso/state"]).data;
-    console.log("this..");
-    console.log(userInfo);
     username = userInfo.serviceUsername_363;
-    console.log(username);
 
     return {};
   },
@@ -68,7 +67,7 @@ var EventDetails = React.createClass({
     // $.get(RSS, this.onRSSGet);
 
     request.action("EVENTFEED")
-    .send({EID: '10862', UID: 'mdovey'})
+    .send({EID: {id}, UID: {username}})
     .end((error, response) => {
       if (error) {
         return console.error(error);
@@ -82,19 +81,24 @@ var EventDetails = React.createClass({
   ok: function() {
     document.getElementById("disabler").style.display = "none";
     document.getElementById("doubleCheck").style.display = "none";
+    this.addEventToCalendar();
   },
 
-  //Closes the opoup and re-enables the functionality of the app, whilst reverting all changes made by the favourite button.
+  //Closes the popup and re-enables the functionality of the app, whilst reverting all changes made by the favourite button.
+  //Currently there is no plan for the user to be able to remove the event from thier calendar.
+  //To set up the ability for students to take events off of their calendars uncomment the if and implement a webservice that removes events
   cancel: function() {
     document.getElementById("disabler").style.display = "none";
     document.getElementById("doubleCheck").style.display = "none";
-    if (favourited) {
-      starColour = { backgroundColor: "#e0e0e0"};
-      favourited = false;
-    } else {
-      starColour = { backgroundColor: "#FFD700"};
-      favourited = true;
-    }
+    // if (favourited) {
+    //   starColour = { backgroundColor: "#e0e0e0"};
+    //   favourited = false;
+    // } else {
+    //   starColour = { backgroundColor: "#FFD700"};
+    //   favourited = true;
+    // }
+    starColour = { backgroundColor: "#e0e0e0"};
+    favourited = false;
     this.forceUpdate();
   },
 
@@ -103,14 +107,20 @@ var EventDetails = React.createClass({
     this.props.onClick();
   },
 
-  //When user clicks favouritethe popup is opened and all other parts are disabled until the user confirms or cancels the favourite.
+  //When user clicks favourite the popup is opened and all other parts are disabled until the user confirms or cancels the favourite.
+  //To set up the ability for students to take events off of their calendars uncomment the if block
   favourite: function() {
-    document.getElementById("disabler").style.display = "inline";
-    document.getElementById("doubleCheck").style.display = "inline";
-    if (favourited) {
-      favourited = false;
-      starColour = { backgroundColor: "#e0e0e0"};
-    } else {
+    // if (favourited) {
+    //   favourited = false;
+    //   starColour = { backgroundColor: "#e0e0e0"};
+    // } else {
+    //   favourited = true;
+    //   starColour = { backgroundColor: "#FFD700"};
+    // }
+
+    if (!favourited) {
+      document.getElementById("disabler").style.display = "inline";
+      document.getElementById("doubleCheck").style.display = "inline";
       favourited = true;
       starColour = { backgroundColor: "#FFD700"};
     }
@@ -159,6 +169,7 @@ var EventDetails = React.createClass({
                 <div className="ui divider"/>
                 <div id="doubleCheck">
                   <p>Are you sure you want to add this event to your personal calendar?</p>
+                  <p style={{fontSize:"10px", marginBottom:"0"}}>These events are subject to change and the original event page should be checked for any changes.</p>
                   <br/>
                   <div>
                     <Button onClick={this.ok} className="checkButton">OK</Button>

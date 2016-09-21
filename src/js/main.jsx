@@ -9,15 +9,17 @@ var EventsPage = require("./pages/events");
 var WelcomePage = require("./pages/welcome");
 var AddPage = require("./pages/addEvent");
 
-var newStudent, buttonState, child, title, banner/*, addEvent, eventPage*/;
+var newStudent, buttonState, child, title, banner/*, addEvent, eventPage*/; //- addEvent functionality
+
+//TODO: Create a loading screen that will pop up to cover the twig code. or at least check whether or not there issomething takign ages to load here causing the render to be delayed.
 
 var Screen = React.createClass({
 
   //Setting the initial state of essential variables and running crucial functions needed for functionality.
   getInitialState: function() {
     newStudent = true;
-    //eventPage = false;
-    //addEvent = false;
+    //eventPage = false; - addEvent functionality
+    //addEvent = false; - addEvent functionality
     //Initialise the first menu option to be active and to be displayed by default.
     if (newStudent) {
       buttonState = ["active item","item","item"];
@@ -38,51 +40,51 @@ var Screen = React.createClass({
       if (option === "welcome") {
         child = <WelcomePage/>;
         title = "Welcome Week";
-        //eventPage = false;
-        //addEvent = false;
+        //eventPage = false; - addEvent functionality
+        //addEvent = false; - addEvent functionality
         buttonState[0] = buttonState[1] = buttonState[2] = "item";
         buttonState[0] = "active item";
       } else if (option === "news") {
         child = <NewsPage/>;
         title = "University of Essex News";
-        //eventPage = false;
-        //addEvent = false;
+        //eventPage = false; - addEvent functionality
+        //addEvent = false; - addEvent functionality
         buttonState[0] = buttonState[1] = buttonState[2] = "item";
         buttonState[1] = "active item";
       } else if (option === "events") {
         child = <EventsPage/>;
-        //eventPage = true;
-        //addEvent = false;
+        //eventPage = true; - addEvent functionality
+        //addEvent = false; - addEvent functionality
         title = "University of Essex Events";
         buttonState[0] = buttonState[1] = buttonState[2] = "item";
         buttonState[2] = "active item";
       } else if (option === "add") {
         child = <AddPage/>;
         title = "Add Event";
-        //eventPage = false;
-        //addEvent = true;
+        //eventPage = false; - addEvent functionality
+        //addEvent = true; - addEvent functionality
       }
     //If not a student then setup and initialise all options but the welcome week.
     } else {
       if (option === "news") {
         child = <NewsPage/>;
         title = "University of Essex News";
-        //eventPage = false;
-        //addEvent = false;
+        //eventPage = false; - addEvent functionality
+        //addEvent = false; - addEvent functionality
         buttonState[0] = buttonState[1] = "item";
         buttonState[0] = "active item";
       } else if (option === "events") {
         child = <EventsPage/>;
-        //eventPage = true;
-        //addEvent = false;
+        //eventPage = true; - addEvent functionality
+        //addEvent = false; - addEvent functionality
         title = "University of Essex Events";
         buttonState[0] = buttonState[1] = "item";
         buttonState[1] = "active item";
       } else if (option === "add") {
         child = <AddPage/>;
         title = "Add Event";
-        //eventPage = false;
-        //addEvent = true;
+        //eventPage = false; - addEvent functionality
+        //addEvent = true; - addEvent functionality
       }
     }
     this.forceUpdate();
