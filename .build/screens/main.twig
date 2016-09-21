@@ -4,25 +4,6 @@
   {{ aek.set_header_text('News and Events') }}
 
 
-  {% set service = aek.get_soap_client("CONNECT") %}
-  {{ service.override_location }}
-  {{ service.cache_wsdl }}
-  <!-- {# force user to login #} -->
-  {% set user_creds = service.user_credentials %}
-
-  {% if aek.action in ["EVENTFEED"] %}
-    {% set params = user_creds|merge(aek.request("params")|default('{}')|json_decode(true)) %}
-    {% set response = service.call(aek.action,params) %}
-    {% set error = service.get_error %}
-    {% if error %}
-      {{ aek.json({"error":error}) }}
-    {% else %}
-      {{ aek.json(response) }}
-    {% endif %}
-  {% endif %}
-
-  
-
 <html lang="en" data-aek-package="[[__package_data__]]" data-public-assets="[[__public_assets__]]" data-env="prod" data-platform="{{ aek.get_platform() }}" >
 <head>
   <meta charset="utf-8">
