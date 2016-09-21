@@ -18,7 +18,7 @@
   {% set service = aek.get_soap_client("CONNECT") %}
   {{ service.override_location }}
   {{ service.cache_wsdl }}
-  {# force user to login #}
+  <!-- {# force user to login #} -->
   {% set user_creds = service.user_credentials %}
 
   {% if aek.action in ["EVENTFEED"] %}
@@ -32,12 +32,7 @@
     {% endif %}
   {% endif %}
 
-  {% if aek.action == "login" %}
-    {% set loginResponse = service.call("login",user_creds) %}
-    {% if not loginResponse %}
-      {{ service.reject_login() }}
-    {% endif %}
-  {% endif %}
+  
 << end >>
 
 << extend "templates/master.ect" >>
