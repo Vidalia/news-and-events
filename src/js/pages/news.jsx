@@ -8,9 +8,6 @@ var {Grid,Row,Col} = require("-components/grid");
 var $ = require("jquery");
 var newsData, paddingNeeded;
 
-//TODO: Create a loading screen that will pop up to cover the twig code. or at least check whether or not there issomething takign ages to load here causing the render to be delayed.
-//Only do the above if this is the first page you come to when you are not a student.
-
 var NewsPage = React.createClass({
 
   //Setting the initial state of essential variables and running crucial functions needed for functionality.

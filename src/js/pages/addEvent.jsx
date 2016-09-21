@@ -7,11 +7,9 @@ var {BasicSegment} = require("-components/segment");
 //var {Grid,Row,Col} = require("-components/grid");
 //var $ = require("jquery");
 
+//This page allows for users to add their own events to the universities event feed. Refer to eventDetails in order to make this functional.
+
 var AddPage = React.createClass({
-
-  componentDidMount: function() {
-
-  },
 
   render:function() {
     //var loading = !newsData;

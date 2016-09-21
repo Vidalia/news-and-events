@@ -66,6 +66,28 @@ var EventsPage = React.createClass({
     this.forceUpdate();
   },
 
+  pastOrFuture: function(eventDate) {
+    var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+    var eventDay = Number(eventDate.substring(5,7));
+    var eventMonth = months.indexOf(eventDate.substring(8,11));
+    var eventYear = Number(eventDate.substring(12,16));
+
+    var today = new Date();
+    var day = today.getDate();
+    var month = today.getMonth();
+    var year = today.getFullYear();
+
+    if (eventYear >= year) {
+      if (eventMonth >= month) {
+        if (eventDay >= day) {
+          return true;
+        }
+      }
+    }
+    return false;
+  },
+
   render:function() {
     var loading = !eventData;
 
@@ -81,7 +103,9 @@ var EventsPage = React.createClass({
             id: eventData[i].getElementsByTagName("EventID")[0].innerHTML,
             link: eventData[i].getElementsByTagName("EventURL")[0].innerHTML,
             date: eventData[i].getElementsByTagName("EventStartDateTime")[0].innerHTML};
+          if (this.pastOrFuture(eventData[i].getElementsByTagName("EventStartDateTime")[0].innerHTML)) {
             events.push(event);
+          }
         }
         //TODO: Need to somehow seperate html and text from content clean where they are mixed...
         //console.log(eventData[i].getElementsByTagName("EventContentClean")[0]);
@@ -103,6 +127,9 @@ var EventsPage = React.createClass({
       //If an event has not yet been chosen, then display the list of all events.
       } else {
         console.log(events);
+        if (events.length == 0) {
+          console.error(events);
+        }
         return (
           <Page style={paddingNeeded}>
             <BasicSegment>
