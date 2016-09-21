@@ -13,26 +13,4 @@
   ]
 >>
 
-<< block 'init': >>
-
-  {% set service = aek.get_soap_client("CONNECT") %}
-  {{ service.override_location }}
-  {{ service.cache_wsdl }}
-  <!-- {# force user to login #} -->
-  {% set user_creds = service.user_credentials %}
-
-  {% if aek.action in ["EVENTFEED"] %}
-    {% set params = user_creds|merge(aek.request("params")|default('{}')|json_decode(true)) %}
-    {% set response = service.call(aek.action,params) %}
-    {% set error = service.get_error %}
-    {% if error %}
-      {{ aek.json({"error":error}) }}
-    {% else %}
-      {{ aek.json(response) }}
-    {% endif %}
-  {% endif %}
-
-  
-<< end >>
-
 << extend "templates/master.ect" >>
