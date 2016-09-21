@@ -11,7 +11,7 @@ var AddPage = require("./pages/addEvent");
 
 var newStudent, buttonState, child, title, banner/*, addEvent, eventPage*/; //- addEvent functionality
 
-//TODO: Create a loading screen that will pop up to cover the twig code. or at least check whether or not there issomething takign ages to load here causing the render to be delayed.
+//TODO: Create a loading screen that will pop up to cover the twig code. or at least check whether or not there is something takign ages to load here causing the render to be delayed.
 
 var Screen = React.createClass({
 
